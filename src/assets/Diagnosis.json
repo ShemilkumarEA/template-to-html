@@ -1,0 +1,3477 @@
+{
+  "templateId": "Diagnose",
+  "version": "2.3",
+  "defaultLanguage": "de",
+  "languages": [
+    "de"
+  ],
+  "tree": {
+    "id": "diagnose",
+    "name": "Diagnose",
+    "localizedName": "Diagnose",
+    "rmType": "COMPOSITION",
+    "nodeId": "openEHR-EHR-COMPOSITION.report.v1",
+    "min": 1,
+    "max": 1,
+    "localizedNames": {
+      "de": "Diagnose"
+    },
+    "localizedDescriptions": {
+      "de": "Ein Dokument zur Übermittlung von Informationen an andere, meist als Antwort auf eine Anfrage."
+    },
+    "children": [
+      {
+        "id": "category",
+        "name": "category",
+        "localizedName": "category",
+        "rmType": "DV_CODED_TEXT",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/category",
+        "children": [
+          {
+            "id": "defining_code",
+            "name": "defining_code",
+            "localizedName": "defining_code",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/category/defining_code",
+            "inputs": [
+              {
+                "suffix": "code",
+                "type": "CODED_TEXT",
+                "list": [
+                  {
+                    "value": "433",
+                    "label": "event",
+                    "localizedLabels": {
+                      "de": "event"
+                    }
+                  }
+                ],
+                "terminology": "openehr"
+              }
+            ]
+          }
+        ],
+        "inputs": [
+          {
+            "suffix": "code",
+            "type": "CODED_TEXT",
+            "list": [
+              {
+                "value": "433",
+                "label": "event",
+                "localizedLabels": {
+                  "de": "event"
+                }
+              }
+            ],
+            "terminology": "openehr"
+          }
+        ],
+        "inContext": true
+      },
+      {
+        "id": "context",
+        "name": "context",
+        "localizedName": "context",
+        "rmType": "EVENT_CONTEXT",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/context",
+        "children": [
+          {
+            "id": "tree",
+            "name": "Tree",
+            "localizedName": "Tree",
+            "rmType": "ITEM_TREE",
+            "nodeId": "at0001",
+            "min": 1,
+            "max": 1,
+            "localizedNames": {
+              "de": "Tree"
+            },
+            "localizedDescriptions": {
+              "de": "@ internal @"
+            },
+            "aqlPath": "/context/other_context[at0001]",
+            "children": [
+              {
+                "id": "bericht_id",
+                "name": "Bericht ID",
+                "localizedName": "Bericht ID",
+                "rmType": "ELEMENT",
+                "nodeId": "at0002",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Bericht ID"
+                },
+                "localizedDescriptions": {
+                  "de": "Identifizierungsmerkmal des Berichts."
+                },
+                "aqlPath": "/context/other_context[at0001]/items[at0002]",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Bericht ID",
+                    "localizedName": "Bericht ID",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0002",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Bericht ID"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Identifizierungsmerkmal des Berichts."
+                    },
+                    "aqlPath": "/context/other_context[at0001]/items[at0002]/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[at0002]/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[at0002]/feeder_audit"
+                  }
+                ],
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "fallidentifikation",
+                "name": "Fallidentifikation",
+                "localizedName": "Fallidentifikation",
+                "rmType": "CLUSTER",
+                "nodeId": "openEHR-EHR-CLUSTER.case_identification.v0",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Fallidentifikation"
+                },
+                "localizedDescriptions": {
+                  "de": "Zur Erfassung von Details zur Identifikation eines Falls im Gesundheitswesen."
+                },
+                "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]",
+                "children": [
+                  {
+                    "id": "fall-kennung",
+                    "name": "Fall-Kennung",
+                    "localizedName": "Fall-Kennung",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0001",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Fall-Kennung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Der Bezeichner/die Kennung dieses Falls."
+                    },
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0001]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Fall-Kennung",
+                        "localizedName": "Fall-Kennung",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0001",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Fall-Kennung"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Der Bezeichner/die Kennung dieses Falls."
+                        },
+                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0001]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0001]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0001]/feeder_audit"
+                      }
+                    ],
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "uid",
+                    "name": "uid",
+                    "rmType": "UID_BASED_ID",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/uid",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "archetype_details",
+                    "name": "archetype_details",
+                    "rmType": "ARCHETYPED",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/archetype_details"
+                  },
+                  {
+                    "id": "archetype_node_id",
+                    "name": "archetype_node_id",
+                    "rmType": "STRING",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/archetype_node_id",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/feeder_audit"
+                  },
+                  {
+                    "id": "links",
+                    "name": "links",
+                    "rmType": "LINK",
+                    "min": 0,
+                    "max": -1,
+                    "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links"
+                  }
+                ]
+              },
+              {
+                "id": "uid",
+                "name": "uid",
+                "rmType": "UID_BASED_ID",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/context/other_context[at0001]/uid",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "archetype_details",
+                "name": "archetype_details",
+                "rmType": "ARCHETYPED",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/context/other_context[at0001]/archetype_details"
+              },
+              {
+                "id": "archetype_node_id",
+                "name": "archetype_node_id",
+                "rmType": "STRING",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/context/other_context[at0001]/archetype_node_id",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "name",
+                "name": "name",
+                "rmType": "DV_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/context/other_context[at0001]/name",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "feeder_audit",
+                "name": "feeder_audit",
+                "rmType": "FEEDER_AUDIT",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/context/other_context[at0001]/feeder_audit"
+              },
+              {
+                "id": "links",
+                "name": "links",
+                "rmType": "LINK",
+                "min": 0,
+                "max": -1,
+                "aqlPath": "/context/other_context[at0001]/links"
+              }
+            ]
+          },
+          {
+            "id": "start_time",
+            "name": "start_time",
+            "rmType": "DV_DATE_TIME",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/context/start_time",
+            "inputs": [
+              {
+                "type": "DATETIME"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "participations",
+            "name": "participations",
+            "rmType": "PARTICIPATION",
+            "min": 0,
+            "max": -1,
+            "aqlPath": "/context/participations",
+            "inContext": true
+          },
+          {
+            "id": "end_time",
+            "name": "end_time",
+            "rmType": "DV_DATE_TIME",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/context/end_time",
+            "inputs": [
+              {
+                "type": "DATETIME"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "location",
+            "name": "location",
+            "rmType": "STRING",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/context/location",
+            "inputs": [
+              {
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "health_care_facility",
+            "name": "health_care_facility",
+            "rmType": "PARTY_IDENTIFIED",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/context/health_care_facility"
+          },
+          {
+            "id": "setting",
+            "name": "setting",
+            "rmType": "DV_CODED_TEXT",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/context/setting",
+            "inputs": [
+              {
+                "suffix": "code",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "value",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          }
+        ],
+        "cardinalities": [
+          {
+            "min": 0,
+            "max": 1,
+            "ids": [
+              "tree"
+            ],
+            "excludeFromWebTemplate": true
+          }
+        ]
+      },
+      {
+        "id": "problem_diagnose",
+        "name": "Problem/Diagnose",
+        "localizedName": "Problem/Diagnose",
+        "rmType": "EVALUATION",
+        "nodeId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "min": 0,
+        "max": 1,
+        "localizedNames": {
+          "de": "Problem/Diagnose"
+        },
+        "localizedDescriptions": {
+          "de": "Angaben über einen einzelnen identifizierten Gesundheitszustand, eine Verletzung, eine Behinderung oder ein Problem, welches das körperliche, geistige und/oder soziale Wohlergehen einer Einzelperson beeinträchtigt."
+        },
+        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]",
+        "children": [
+          {
+            "id": "structure",
+            "name": "Structure",
+            "localizedName": "Structure",
+            "rmType": "ITEM_TREE",
+            "nodeId": "at0001",
+            "min": 1,
+            "max": 1,
+            "localizedNames": {
+              "de": "Structure"
+            },
+            "localizedDescriptions": {
+              "de": "@ internal @"
+            },
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]",
+            "children": [
+              {
+                "id": "name_des_problems_der_diagnose",
+                "name": "Name des Problems/ der Diagnose",
+                "localizedName": "Name des Problems/ der Diagnose",
+                "rmType": "ELEMENT",
+                "nodeId": "at0002",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Name des Problems/ der Diagnose"
+                },
+                "localizedDescriptions": {
+                  "de": "Namentliche Identifikation des Problems oder der Diagnose."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Name des Problems/ der Diagnose",
+                    "localizedName": "Name des Problems/ der Diagnose",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0002",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Name des Problems/ der Diagnose"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Namentliche Identifikation des Problems oder der Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Wo möglich, ist die Kodierung des Problems oder der Diagnose über eine Terminologie zu bevorzugen."
+                    }
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Wo möglich, ist die Kodierung des Problems oder der Diagnose über eine Terminologie zu bevorzugen."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "freitextbeschreibung",
+                "name": "Freitextbeschreibung",
+                "localizedName": "Freitextbeschreibung",
+                "rmType": "ELEMENT",
+                "nodeId": "at0009",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Freitextbeschreibung"
+                },
+                "localizedDescriptions": {
+                  "de": "Beschreibung des Problems oder der Diagnose."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009 and name/value='Freitextbeschreibung']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Freitextbeschreibung",
+                    "localizedName": "Freitextbeschreibung",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0009",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Freitextbeschreibung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Beschreibung des Problems oder der Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009 and name/value='Freitextbeschreibung']/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Wird verwendet, um Hintergrund und Kontext, einschließlich Entwicklung, Episoden oder Verschlechterungen, Fortschritt und andere relevante Details über das Problem oder die Diagnose zu liefern."
+                    }
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009 and name/value='Freitextbeschreibung']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Freitextbeschreibung",
+                            "label": "Freitextbeschreibung"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009 and name/value='Freitextbeschreibung']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009 and name/value='Freitextbeschreibung']/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Wird verwendet, um Hintergrund und Kontext, einschließlich Entwicklung, Episoden oder Verschlechterungen, Fortschritt und andere relevante Details über das Problem oder die Diagnose zu liefern."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "lokalisation",
+                "name": "Lokalisation",
+                "localizedName": "Lokalisation",
+                "rmType": "ELEMENT",
+                "nodeId": "at0012",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Lokalisation"
+                },
+                "localizedDescriptions": {
+                  "de": "Identifikation einer einfachen Körperstelle zur Lokalisierung des Problems oder der Diagnose."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0012 and name/value='Lokalisation']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Lokalisation",
+                    "localizedName": "Lokalisation",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0012",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Lokalisation"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Identifikation einer einfachen Körperstelle zur Lokalisierung des Problems oder der Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0012 and name/value='Lokalisation']/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Wo dies möglich ist, ist die Kodierung der anatomischen Lokalisation über eine Terminologie zu bevorzugen. Verwenden Sie dieses Datenelement, um vorab präkoordinierte anatomische Lokalisationen zu erfassen. Wenn die Anforderungen an die Erfassung der anatomischen Lokalisation zur Laufzeit durch die Anwendung bestimmt werden oder komplexere Modellierungen, wie z.B. relative Lokalisationen erforderlich sind, dann verwenden Sie in diesem Archetyp den CLUSTER.anatomical_location oder CLUSTER.relative_location innerhalb des SLOT 'Structured anatomical location'. Die Anzahl für dieses Datenelement ist unbegrenzt, um klinische Szenarien wie die Beschreibung eines Hautausschlags an mehreren Stellen zu ermöglichen, wobei jedoch alle anderen Attribute identisch sind. Falls die anatomische Lage über präkoordinierte Codes im Namen des Problems/Diagnose enthalten ist, wird dieses Datenelement überflüssig."
+                    }
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0012 and name/value='Lokalisation']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Lokalisation",
+                            "label": "Lokalisation"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0012 and name/value='Lokalisation']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0012 and name/value='Lokalisation']/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Wo dies möglich ist, ist die Kodierung der anatomischen Lokalisation über eine Terminologie zu bevorzugen. Verwenden Sie dieses Datenelement, um vorab präkoordinierte anatomische Lokalisationen zu erfassen. Wenn die Anforderungen an die Erfassung der anatomischen Lokalisation zur Laufzeit durch die Anwendung bestimmt werden oder komplexere Modellierungen, wie z.B. relative Lokalisationen erforderlich sind, dann verwenden Sie in diesem Archetyp den CLUSTER.anatomical_location oder CLUSTER.relative_location innerhalb des SLOT 'Structured anatomical location'. Die Anzahl für dieses Datenelement ist unbegrenzt, um klinische Szenarien wie die Beschreibung eines Hautausschlags an mehreren Stellen zu ermöglichen, wobei jedoch alle anderen Attribute identisch sind. Falls die anatomische Lage über präkoordinierte Codes im Namen des Problems/Diagnose enthalten ist, wird dieses Datenelement überflüssig."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "anatomische_lokalisation",
+                "name": "Anatomische Lokalisation",
+                "localizedName": "Anatomische Lokalisation",
+                "rmType": "CLUSTER",
+                "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                  "de": "Anatomische Lokalisation"
+                },
+                "localizedDescriptions": {
+                  "de": "Eine physische Stelle am oder innerhalb des menschlichen Körpers."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                "children": [
+                  {
+                    "id": "name_der_körperstelle",
+                    "name": "Name der Körperstelle",
+                    "localizedName": "Name der Körperstelle",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0001",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Name der Körperstelle"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Identifikation einer einzelnen physischen Stelle entweder am oder innerhalb des menschlichen Körpers."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Name der Körperstelle",
+                        "localizedName": "Name der Körperstelle",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0001",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Name der Körperstelle"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Identifikation einer einzelnen physischen Stelle entweder am oder innerhalb des menschlichen Körpers."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Dieses Datenelement ist der einzige verpflichtend auszufüllende Datenpunkt in diesem Archetypen und sollte als primärer Datenpunkt verwendet werden, um eine anatomische Lokalisation mit einem häufig verwendeten Namen aufzuzeichnen. Es wird dringend empfohlen, dass der Name der Körperstelle so genau aufgezeichnet wird, wie es anatomisch möglich ist. Zum Beispiel: zeichne \"oberes Augenlid\" auf und nicht \"Augenlid\" mit \"oberer\" als Qualifier; \"fünfte Rippe\" statt \"Rippe\" mit einem numerischen Qualifier. Verwenden Sie die anderen Datenelemente für Lateralität, Sichtweise, Region und anatomische Linie, um mehr Details anzugeben.\n\n                                        Dieses Datenelement sollte mit einer Terminologie kodiert werden, die nach Möglichkeit Entscheidungsunterstützung auslösen kann - ein geeignetes Termset für die Verwendung hier könnte aus einzelnen Konzepten oder einer Liste von vorab abgestimmten Begriffen zusammengesetzt sein. Freitext sollte nur verwendet werden, wenn keine entsprechende Terminologie vorhanden ist.\n\n                                        Wenn der Name der Körperstelle bereits im übergeordneten Archetyp angegeben ist, kann dieses Datenelement redundant sein. Alternativ wurde ein Anwendungsfall ermittelt, bei dem der Wert in dieses Element dupliziert sein könnte, um semantische Abfragen unter Verwendung dieses Archetyps und nicht das Datenelement innerhalb des übergeordneten Elements zu unterstützen."
+                        }
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]/feeder_audit"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Dieses Datenelement ist der einzige verpflichtend auszufüllende Datenpunkt in diesem Archetypen und sollte als primärer Datenpunkt verwendet werden, um eine anatomische Lokalisation mit einem häufig verwendeten Namen aufzuzeichnen. Es wird dringend empfohlen, dass der Name der Körperstelle so genau aufgezeichnet wird, wie es anatomisch möglich ist. Zum Beispiel: zeichne \"oberes Augenlid\" auf und nicht \"Augenlid\" mit \"oberer\" als Qualifier; \"fünfte Rippe\" statt \"Rippe\" mit einem numerischen Qualifier. Verwenden Sie die anderen Datenelemente für Lateralität, Sichtweise, Region und anatomische Linie, um mehr Details anzugeben.\n\n                                        Dieses Datenelement sollte mit einer Terminologie kodiert werden, die nach Möglichkeit Entscheidungsunterstützung auslösen kann - ein geeignetes Termset für die Verwendung hier könnte aus einzelnen Konzepten oder einer Liste von vorab abgestimmten Begriffen zusammengesetzt sein. Freitext sollte nur verwendet werden, wenn keine entsprechende Terminologie vorhanden ist.\n\n                                        Wenn der Name der Körperstelle bereits im übergeordneten Archetyp angegeben ist, kann dieses Datenelement redundant sein. Alternativ wurde ein Anwendungsfall ermittelt, bei dem der Wert in dieses Element dupliziert sein könnte, um semantische Abfragen unter Verwendung dieses Archetyps und nicht das Datenelement innerhalb des übergeordneten Elements zu unterstützen."
+                    },
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "lateralität",
+                    "name": "Lateralität",
+                    "localizedName": "Lateralität",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0002",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Lateralität"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Die Seite des Körpers, an der sich die identifizierte Körperstelle befindet."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Lateralität",
+                        "localizedName": "Lateralität",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0002",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Lateralität"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Die Seite des Körpers, an der sich die identifizierte Körperstelle befindet."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]/value",
+                        "children": [
+                          {
+                            "id": "defining_code",
+                            "name": "defining_code",
+                            "localizedName": "defining_code",
+                            "rmType": "CODE_PHRASE",
+                            "min": 1,
+                            "max": 1,
+                            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]/value/defining_code",
+                            "inputs": [
+                              {
+                                "suffix": "code",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                  {
+                                    "value": "at0003",
+                                    "label": "Links",
+                                    "localizedLabels": {
+                                      "de": "Links"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "Die linke Körperseite."
+                                    }
+                                  },
+                                  {
+                                    "value": "at0004",
+                                    "label": "Rechts",
+                                    "localizedLabels": {
+                                      "de": "Rechts"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "Die rechte Körperseite."
+                                    }
+                                  }
+                                ],
+                                "terminology": "local"
+                              }
+                            ]
+                          }
+                        ],
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "CODED_TEXT",
+                            "list": [
+                              {
+                                "value": "at0003",
+                                "label": "Links",
+                                "localizedLabels": {
+                                  "de": "Links"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Die linke Körperseite."
+                                }
+                              },
+                              {
+                                "value": "at0004",
+                                "label": "Rechts",
+                                "localizedLabels": {
+                                  "de": "Rechts"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Die rechte Körperseite."
+                                }
+                              }
+                            ],
+                            "terminology": "local"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Wenn die identifizierte Körperstelle keine Seitenlage aufweist, sollte dieses Datenelement keinen Wert haben. Wenn das Datenelement \"Name der Körperstelle\" präkoordinierte Bezeichnungen verwendet, die eine Seitenlokalisation einschließt, dann ist dieses Datenelement redundant."
+                        }
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]/feeder_audit"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Wenn die identifizierte Körperstelle keine Seitenlage aufweist, sollte dieses Datenelement keinen Wert haben. Wenn das Datenelement \"Name der Körperstelle\" präkoordinierte Bezeichnungen verwendet, die eine Seitenlokalisation einschließt, dann ist dieses Datenelement redundant."
+                    },
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "alternative_struktur",
+                    "name": "Alternative Struktur",
+                    "localizedName": "Alternative Struktur",
+                    "rmType": "CLUSTER",
+                    "nodeId": "at0053",
+                    "min": 0,
+                    "max": -1,
+                    "localizedNames": {
+                      "de": "Alternative Struktur"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Zusätzliche Informationen über die anatomische Lage mit alternativen Ansätzen zur Beschreibung der gleichen Körperstelle."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0053]",
+                    "annotations": {
+                      "comment": "Zum Beispiel, relative oder exakte Positionen unter Verwendung von Koordinaten."
+                    }
+                  },
+                  {
+                    "id": "multimediale_darstellung",
+                    "name": "Multimediale Darstellung",
+                    "localizedName": "Multimediale Darstellung",
+                    "rmType": "CLUSTER",
+                    "nodeId": "at0054",
+                    "min": 0,
+                    "max": -1,
+                    "localizedNames": {
+                      "de": "Multimediale Darstellung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Bilder oder andere Medien, die der Identifizierung der Körperstelle dienen."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0054]"
+                  },
+                  {
+                    "id": "uid",
+                    "name": "uid",
+                    "rmType": "UID_BASED_ID",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/uid",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "archetype_details",
+                    "name": "archetype_details",
+                    "rmType": "ARCHETYPED",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/archetype_details"
+                  },
+                  {
+                    "id": "archetype_node_id",
+                    "name": "archetype_node_id",
+                    "rmType": "STRING",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/archetype_node_id",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/feeder_audit"
+                  },
+                  {
+                    "id": "links",
+                    "name": "links",
+                    "rmType": "LINK",
+                    "min": 0,
+                    "max": -1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/links"
+                  }
+                ]
+              },
+              {
+                "id": "datum_des_auftretens_der_erstdiagnose",
+                "name": "Datum des Auftretens/der Erstdiagnose",
+                "localizedName": "Datum des Auftretens/der Erstdiagnose",
+                "rmType": "ELEMENT",
+                "nodeId": "at0077",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Datum des Auftretens/der Erstdiagnose"
+                },
+                "localizedDescriptions": {
+                  "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der die Krankheitsanzeichen oder Symptome zum ersten mal beobachtet wurden."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077 and name/value='Datum des Auftretens/der Erstdiagnose']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Datum des Auftretens/der Erstdiagnose",
+                    "localizedName": "Datum des Auftretens/der Erstdiagnose",
+                    "rmType": "DV_DATE_TIME",
+                    "nodeId": "at0077",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Datum des Auftretens/der Erstdiagnose"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der die Krankheitsanzeichen oder Symptome zum ersten mal beobachtet wurden."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077 and name/value='Datum des Auftretens/der Erstdiagnose']/value",
+                    "inputs": [
+                      {
+                        "type": "DATETIME"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Datumswerte, die als \"Alter zu Beginn\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                    }
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077 and name/value='Datum des Auftretens/der Erstdiagnose']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Datum des Auftretens/der Erstdiagnose",
+                            "label": "Datum des Auftretens/der Erstdiagnose"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077 and name/value='Datum des Auftretens/der Erstdiagnose']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077 and name/value='Datum des Auftretens/der Erstdiagnose']/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Datumswerte, die als \"Alter zu Beginn\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "feststellungsdatum",
+                "name": "Feststellungsdatum",
+                "localizedName": "Feststellungsdatum",
+                "rmType": "ELEMENT",
+                "nodeId": "at0003",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Feststellungsdatum"
+                },
+                "localizedDescriptions": {
+                  "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der die Diagnose oder das Problem von einer medizinischen Fachkraft festgestellt wurde."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0003 and name/value='Feststellungsdatum']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Feststellungsdatum",
+                    "localizedName": "Feststellungsdatum",
+                    "rmType": "DV_DATE_TIME",
+                    "nodeId": "at0003",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Feststellungsdatum"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der die Diagnose oder das Problem von einer medizinischen Fachkraft festgestellt wurde."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0003 and name/value='Feststellungsdatum']/value",
+                    "inputs": [
+                      {
+                        "type": "DATETIME"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Unvollständige Datumsangaben sind zulässig. Wenn der Patient unter einem Jahr alt ist, dann ist das vollständige Datum oder ein Minimum von Monat und Jahr notwendig, um genaue Altersberechnungen zu ermöglichen - z.B. wenn es zur Entscheidungsunterstützung verwendet wird. Datumswerte, die als \"Alter zum Zeitpunkt der klinischen Feststellung\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                    }
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0003 and name/value='Feststellungsdatum']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Feststellungsdatum",
+                            "label": "Feststellungsdatum"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0003 and name/value='Feststellungsdatum']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0003 and name/value='Feststellungsdatum']/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Unvollständige Datumsangaben sind zulässig. Wenn der Patient unter einem Jahr alt ist, dann ist das vollständige Datum oder ein Minimum von Monat und Jahr notwendig, um genaue Altersberechnungen zu ermöglichen - z.B. wenn es zur Entscheidungsunterstützung verwendet wird. Datumswerte, die als \"Alter zum Zeitpunkt der klinischen Feststellung\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "schweregrad",
+                "name": "Schweregrad",
+                "localizedName": "Schweregrad",
+                "rmType": "ELEMENT",
+                "nodeId": "at0005",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Schweregrad"
+                },
+                "localizedDescriptions": {
+                  "de": "Eine Gesamtbeurteilung des Schweregrades des Problems oder der Diagnose."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]",
+                "children": [
+                  {
+                    "id": "coded_text_value",
+                    "name": "Schweregrad",
+                    "localizedName": "Schweregrad",
+                    "rmType": "DV_CODED_TEXT",
+                    "nodeId": "at0005",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Schweregrad"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Eine Gesamtbeurteilung des Schweregrades des Problems oder der Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]/value",
+                    "children": [
+                      {
+                        "id": "defining_code",
+                        "name": "defining_code",
+                        "localizedName": "defining_code",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]/value/defining_code",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "CODED_TEXT",
+                            "list": [
+                              {
+                                "value": "at0047",
+                                "label": "Leicht",
+                                "localizedLabels": {
+                                  "de": "Leicht"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Das Problem oder die Diagnose beeinträchtigt die normale Aktivität nicht, bzw. verursacht nicht bleibende gesundheitliche Schäden, falls es nicht behandelt wird."
+                                }
+                              },
+                              {
+                                "value": "at0048",
+                                "label": "Mäßig",
+                                "localizedLabels": {
+                                  "de": "Mäßig"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Das Problem oder die Diagnose beeinträchtigt die normale Aktivität oder verursacht bleibende gesundheitliche Schäden, falls es nicht behandelt wird."
+                                }
+                              },
+                              {
+                                "value": "at0049",
+                                "label": "Schwer",
+                                "localizedLabels": {
+                                  "de": "Schwer"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Das Problem oder die Diagnose verhindert die normale Aktivität oder verursacht schwerwiegende gesundheitliche Schäden, falls es nicht behandelt wird."
+                                }
+                              }
+                            ],
+                            "terminology": "local"
+                          }
+                        ]
+                      }
+                    ],
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "CODED_TEXT",
+                        "list": [
+                          {
+                            "value": "at0047",
+                            "label": "Leicht",
+                            "localizedLabels": {
+                              "de": "Leicht"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Das Problem oder die Diagnose beeinträchtigt die normale Aktivität nicht, bzw. verursacht nicht bleibende gesundheitliche Schäden, falls es nicht behandelt wird."
+                            }
+                          },
+                          {
+                            "value": "at0048",
+                            "label": "Mäßig",
+                            "localizedLabels": {
+                              "de": "Mäßig"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Das Problem oder die Diagnose beeinträchtigt die normale Aktivität oder verursacht bleibende gesundheitliche Schäden, falls es nicht behandelt wird."
+                            }
+                          },
+                          {
+                            "value": "at0049",
+                            "label": "Schwer",
+                            "localizedLabels": {
+                              "de": "Schwer"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Das Problem oder die Diagnose verhindert die normale Aktivität oder verursacht schwerwiegende gesundheitliche Schäden, falls es nicht behandelt wird."
+                            }
+                          }
+                        ],
+                        "terminology": "local"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Ist der Schweregrad über vordefinierte Codes im Element \"Name des Problems/ der Diagnose\" enthalten, wird dieses Datenelement überflüssig. Hinweis: Eine spezifischere Einstufung des Schweregrads kann mit Hilfe des SLOTs \"Spezifische Angaben\" angegeben werden."
+                    }
+                  },
+                  {
+                    "id": "text_value",
+                    "name": "Schweregrad",
+                    "localizedName": "Schweregrad",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0005",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Schweregrad"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Eine Gesamtbeurteilung des Schweregrades des Problems oder der Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Ist der Schweregrad über vordefinierte Codes im Element \"Name des Problems/ der Diagnose\" enthalten, wird dieses Datenelement überflüssig. Hinweis: Eine spezifischere Einstufung des Schweregrads kann mit Hilfe des SLOTs \"Spezifische Angaben\" angegeben werden."
+                    }
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0005]/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Ist der Schweregrad über vordefinierte Codes im Element \"Name des Problems/ der Diagnose\" enthalten, wird dieses Datenelement überflüssig. Hinweis: Eine spezifischere Einstufung des Schweregrads kann mit Hilfe des SLOTs \"Spezifische Angaben\" angegeben werden."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  },
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value",
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "diagnosedetails",
+                "name": "Diagnosedetails",
+                "localizedName": "Diagnosedetails",
+                "rmType": "CLUSTER",
+                "nodeId": "openEHR-EHR-CLUSTER.diagnose_details.v0",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Diagnosedetails"
+                },
+                "localizedDescriptions": {
+                  "de": "Diagnosebezogene Informationen."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]",
+                "children": [
+                  {
+                    "id": "begründung_von_ausnahmen",
+                    "name": "Begründung von Ausnahmen",
+                    "localizedName": "Begründung von Ausnahmen",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0001",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Begründung von Ausnahmen"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Das Auftreten einer Diagnose muss in manchen Fällen zu Abrechnungszwecken begründet werden, z.B. für geschlechtsspezifische Plausibilitätsprüfungen."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0001]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Begründung von Ausnahmen",
+                        "localizedName": "Begründung von Ausnahmen",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0001",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Begründung von Ausnahmen"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Das Auftreten einer Diagnose muss in manchen Fällen zu Abrechnungszwecken begründet werden, z.B. für geschlechtsspezifische Plausibilitätsprüfungen."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0001]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0001]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0001]/feeder_audit"
+                      }
+                    ],
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "diagnosetyp",
+                    "name": "Diagnosetyp",
+                    "localizedName": "Diagnosetyp",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0002",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Diagnosetyp"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Art der Diagnose. Bei der Angabe des Diagnosetyps ist darauf zu achten, dass dieser auch im richtigen Kontext verwendet wird. Zum Beispiel wird es bei der Beschreibung einer Diagnose im Rahmen einer Überweisung nicht den Diagnosetyp \"Entlassdiagnose\" geben."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0002]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Diagnosetyp",
+                        "localizedName": "Diagnosetyp",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0002",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Diagnosetyp"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Art der Diagnose. Bei der Angabe des Diagnosetyps ist darauf zu achten, dass dieser auch im richtigen Kontext verwendet wird. Zum Beispiel wird es bei der Beschreibung einer Diagnose im Rahmen einer Überweisung nicht den Diagnosetyp \"Entlassdiagnose\" geben."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0002]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT",
+                            "list": [
+                              {
+                                "value": "Aufnahmediagnose",
+                                "label": "Aufnahmediagnose"
+                              },
+                              {
+                                "value": "Operationsdiagnose",
+                                "label": "Operationsdiagnose"
+                              },
+                              {
+                                "value": "Entlassdiagnose",
+                                "label": "Entlassdiagnose"
+                              },
+                              {
+                                "value": "Todesursache",
+                                "label": "Todesursache"
+                              },
+                              {
+                                "value": "Versorgungsfallhauptdiagnose",
+                                "label": "Versorgungsfallhauptdiagnose"
+                              },
+                              {
+                                "value": "Abteilungsfallhauptdiagnose",
+                                "label": "Abteilungsfallhauptdiagnose"
+                              },
+                              {
+                                "value": "Sonstige",
+                                "label": "Sonstige"
+                              },
+                              {
+                                "value": "Versorgungsfallnebendiagnose",
+                                "label": "Versorgungsfallnebendiagnose"
+                              },
+                              {
+                                "value": "Abteilungsfallnebendiagnose",
+                                "label": "Abteilungsfallnebendiagnose"
+                              }
+                            ],
+                            "listOpen": false
+                          }
+                        ]
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0002]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0002]/feeder_audit"
+                      }
+                    ],
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "vorhanden_bei_aufnahme",
+                    "name": "Vorhanden bei Aufnahme",
+                    "localizedName": "Vorhanden bei Aufnahme",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0016",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Vorhanden bei Aufnahme"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Ist die Diagnose bei der Aufnahme in die Gesundheiteinrichtung vorhanden?"
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0016]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Vorhanden bei Aufnahme",
+                        "localizedName": "Vorhanden bei Aufnahme",
+                        "rmType": "DV_BOOLEAN",
+                        "nodeId": "at0016",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Vorhanden bei Aufnahme"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Ist die Diagnose bei der Aufnahme in die Gesundheiteinrichtung vorhanden?"
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0016]/value",
+                        "inputs": [
+                          {
+                            "type": "BOOLEAN"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0016]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0016]/feeder_audit"
+                      }
+                    ],
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "vorhanden_bei_entlassung",
+                    "name": "Vorhanden bei Entlassung",
+                    "localizedName": "Vorhanden bei Entlassung",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0017",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Vorhanden bei Entlassung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Ist die Diagnose bei Entlassung aus der Gesundheiteinrichtung vorhanden?"
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0017]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Vorhanden bei Entlassung",
+                        "localizedName": "Vorhanden bei Entlassung",
+                        "rmType": "DV_BOOLEAN",
+                        "nodeId": "at0017",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Vorhanden bei Entlassung"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Ist die Diagnose bei Entlassung aus der Gesundheiteinrichtung vorhanden?"
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0017]/value",
+                        "inputs": [
+                          {
+                            "type": "BOOLEAN"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0017]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/items[at0017]/feeder_audit"
+                      }
+                    ],
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "uid",
+                    "name": "uid",
+                    "rmType": "UID_BASED_ID",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/uid",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "archetype_details",
+                    "name": "archetype_details",
+                    "rmType": "ARCHETYPED",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/archetype_details"
+                  },
+                  {
+                    "id": "archetype_node_id",
+                    "name": "archetype_node_id",
+                    "rmType": "STRING",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/archetype_node_id",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/feeder_audit"
+                  },
+                  {
+                    "id": "links",
+                    "name": "links",
+                    "rmType": "LINK",
+                    "min": 0,
+                    "max": -1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.diagnose_details.v0]/links"
+                  }
+                ]
+              },
+              {
+                "id": "ätiopathogenese",
+                "name": "Ätiopathogenese",
+                "localizedName": "Ätiopathogenese",
+                "rmType": "CLUSTER",
+                "nodeId": "openEHR-EHR-CLUSTER.etiology.v1",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Ätiopathogenese"
+                },
+                "localizedDescriptions": {
+                  "de": "Die Ursachen, Gründe oder Erklärung für das Entstehen eines bestimmten Problems/einer Diagnose, dessen/deren auslösenden Faktoren und Entwicklung."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]",
+                "children": [
+                  {
+                    "id": "ätiologie_der_krankheit",
+                    "name": "Ätiologie der Krankheit",
+                    "localizedName": "Ätiologie der Krankheit",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0001",
+                    "min": 1,
+                    "max": -1,
+                    "localizedNames": {
+                      "de": "Ätiologie der Krankheit"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Identifizierung der Ursache der Krankheit oder des abnormalen Zustands."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]",
+                    "children": [
+                      {
+                        "id": "coded_text_value",
+                        "name": "Ätiologie der Krankheit",
+                        "localizedName": "Ätiologie der Krankheit",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0001",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Ätiologie der Krankheit"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Identifizierung der Ursache der Krankheit oder des abnormalen Zustands."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]/value",
+                        "children": [
+                          {
+                            "id": "defining_code",
+                            "name": "defining_code",
+                            "localizedName": "defining_code",
+                            "rmType": "CODE_PHRASE",
+                            "min": 1,
+                            "max": 1,
+                            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]/value/defining_code",
+                            "inputs": [
+                              {
+                                "suffix": "code",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                  {
+                                    "value": "at0005",
+                                    "label": "Arbeitsrisikofaktoren",
+                                    "localizedLabels": {
+                                      "de": "Arbeitsrisikofaktoren"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. Asbestexposition"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0006",
+                                    "label": "Biologisch",
+                                    "localizedLabels": {
+                                      "de": "Biologisch"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. Alter, Geschlecht"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0007",
+                                    "label": "Chemische Verletzung",
+                                    "localizedLabels": {
+                                      "de": "Chemische Verletzung"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B. Gift, Medikament"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0008",
+                                    "label": "Ernährungsrelevante Faktoren",
+                                    "localizedLabels": {
+                                      "de": "Ernährungsrelevante Faktoren"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B. Eisenmangel, kohlenhydratreiche Ernährung"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0009",
+                                    "label": "Genetische Herkunft",
+                                    "localizedLabels": {
+                                      "de": "Genetische Herkunft"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B Sichelzellenanämie"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0010",
+                                    "label": "Immunologische Herkunft",
+                                    "localizedLabels": {
+                                      "de": "Immunologische Herkunft"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. systemische Lupus erythematodes, AIDS (als Grundursache für Kaposis Sarkom)"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0011",
+                                    "label": "Infektion",
+                                    "localizedLabels": {
+                                      "de": "Infektion"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. Hepatitis C"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0012",
+                                    "label": "Körperliche Verletzung",
+                                    "localizedLabels": {
+                                      "de": "Körperliche Verletzung"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. Kopftrauma, Hitzeerschöpfung, Verletzung durch Strahlenbelastung"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0013",
+                                    "label": "Lebenswandel-bezogene Faktoren",
+                                    "localizedLabels": {
+                                      "de": "Lebenswandel-bezogene Faktoren"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B. Rauchen, Alkoholismus"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0014",
+                                    "label": "Metabolisch-endokriner Herkunft",
+                                    "localizedLabels": {
+                                      "de": "Metabolisch-endokriner Herkunft"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B. Akromegalie, Diabetes"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0015",
+                                    "label": "Neuropsychiatrische Herkunft",
+                                    "localizedLabels": {
+                                      "de": "Neuropsychiatrische Herkunft"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z. B. Alzheimer-Krankheit, Depression"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0016",
+                                    "label": "Umweltexposition",
+                                    "localizedLabels": {
+                                      "de": "Umweltexposition"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "z.B. UV-Strahlung aussetzen, Feinstaub Aussetzung"
+                                    }
+                                  },
+                                  {
+                                    "value": "at0018",
+                                    "label": "Sonstiges",
+                                    "localizedLabels": {
+                                      "de": "Sonstiges"
+                                    },
+                                    "localizedDescriptions": {
+                                      "de": "Sonstige Ursachen, die mit vorgegebenen Werten nicht dargestellt werden können"
+                                    }
+                                  }
+                                ],
+                                "terminology": "local"
+                              }
+                            ]
+                          }
+                        ],
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "CODED_TEXT",
+                            "list": [
+                              {
+                                "value": "at0005",
+                                "label": "Arbeitsrisikofaktoren",
+                                "localizedLabels": {
+                                  "de": "Arbeitsrisikofaktoren"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. Asbestexposition"
+                                }
+                              },
+                              {
+                                "value": "at0006",
+                                "label": "Biologisch",
+                                "localizedLabels": {
+                                  "de": "Biologisch"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. Alter, Geschlecht"
+                                }
+                              },
+                              {
+                                "value": "at0007",
+                                "label": "Chemische Verletzung",
+                                "localizedLabels": {
+                                  "de": "Chemische Verletzung"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B. Gift, Medikament"
+                                }
+                              },
+                              {
+                                "value": "at0008",
+                                "label": "Ernährungsrelevante Faktoren",
+                                "localizedLabels": {
+                                  "de": "Ernährungsrelevante Faktoren"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B. Eisenmangel, kohlenhydratreiche Ernährung"
+                                }
+                              },
+                              {
+                                "value": "at0009",
+                                "label": "Genetische Herkunft",
+                                "localizedLabels": {
+                                  "de": "Genetische Herkunft"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B Sichelzellenanämie"
+                                }
+                              },
+                              {
+                                "value": "at0010",
+                                "label": "Immunologische Herkunft",
+                                "localizedLabels": {
+                                  "de": "Immunologische Herkunft"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. systemische Lupus erythematodes, AIDS (als Grundursache für Kaposis Sarkom)"
+                                }
+                              },
+                              {
+                                "value": "at0011",
+                                "label": "Infektion",
+                                "localizedLabels": {
+                                  "de": "Infektion"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. Hepatitis C"
+                                }
+                              },
+                              {
+                                "value": "at0012",
+                                "label": "Körperliche Verletzung",
+                                "localizedLabels": {
+                                  "de": "Körperliche Verletzung"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. Kopftrauma, Hitzeerschöpfung, Verletzung durch Strahlenbelastung"
+                                }
+                              },
+                              {
+                                "value": "at0013",
+                                "label": "Lebenswandel-bezogene Faktoren",
+                                "localizedLabels": {
+                                  "de": "Lebenswandel-bezogene Faktoren"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B. Rauchen, Alkoholismus"
+                                }
+                              },
+                              {
+                                "value": "at0014",
+                                "label": "Metabolisch-endokriner Herkunft",
+                                "localizedLabels": {
+                                  "de": "Metabolisch-endokriner Herkunft"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B. Akromegalie, Diabetes"
+                                }
+                              },
+                              {
+                                "value": "at0015",
+                                "label": "Neuropsychiatrische Herkunft",
+                                "localizedLabels": {
+                                  "de": "Neuropsychiatrische Herkunft"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z. B. Alzheimer-Krankheit, Depression"
+                                }
+                              },
+                              {
+                                "value": "at0016",
+                                "label": "Umweltexposition",
+                                "localizedLabels": {
+                                  "de": "Umweltexposition"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "z.B. UV-Strahlung aussetzen, Feinstaub Aussetzung"
+                                }
+                              },
+                              {
+                                "value": "at0018",
+                                "label": "Sonstiges",
+                                "localizedLabels": {
+                                  "de": "Sonstiges"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Sonstige Ursachen, die mit vorgegebenen Werten nicht dargestellt werden können"
+                                }
+                              }
+                            ],
+                            "terminology": "local"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Dies könnte eine andere Krankheit sein, ein ungesundes Verhalten, ein Gen oder eine andere Grundursache für die Krankheit, die der Patient hat.\n                                        Es ist möglich, dieses Elements für eine Krankheit, die mehrere Ursachen hat, zu wiederholen.\n                                        Wo dies möglich ist, ist die Kodierung dieses Elements über eine Terminologiedatenbank zu bevorzugen.\n                                        Beispiele für die Eingabe könnten sein: Alkoholismus (bei Leberzirrhose), Diabetes Mellitus (bei chronischer Nierenerkrankung), Atemwegsinfektion (bei Fieber) oder Rauchen (bei Lungenkrebs)."
+                        }
+                      },
+                      {
+                        "id": "text_value",
+                        "name": "Ätiologie der Krankheit",
+                        "localizedName": "Ätiologie der Krankheit",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0001",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Ätiologie der Krankheit"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Identifizierung der Ursache der Krankheit oder des abnormalen Zustands."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Dies könnte eine andere Krankheit sein, ein ungesundes Verhalten, ein Gen oder eine andere Grundursache für die Krankheit, die der Patient hat.\n                                        Es ist möglich, dieses Elements für eine Krankheit, die mehrere Ursachen hat, zu wiederholen.\n                                        Wo dies möglich ist, ist die Kodierung dieses Elements über eine Terminologiedatenbank zu bevorzugen.\n                                        Beispiele für die Eingabe könnten sein: Alkoholismus (bei Leberzirrhose), Diabetes Mellitus (bei chronischer Nierenerkrankung), Atemwegsinfektion (bei Fieber) oder Rauchen (bei Lungenkrebs)."
+                        }
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0001]/feeder_audit"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Dies könnte eine andere Krankheit sein, ein ungesundes Verhalten, ein Gen oder eine andere Grundursache für die Krankheit, die der Patient hat.\n                                        Es ist möglich, dieses Elements für eine Krankheit, die mehrere Ursachen hat, zu wiederholen.\n                                        Wo dies möglich ist, ist die Kodierung dieses Elements über eine Terminologiedatenbank zu bevorzugen.\n                                        Beispiele für die Eingabe könnten sein: Alkoholismus (bei Leberzirrhose), Diabetes Mellitus (bei chronischer Nierenerkrankung), Atemwegsinfektion (bei Fieber) oder Rauchen (bei Lungenkrebs)."
+                    },
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      },
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value",
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "beschreibung_des_entstehens",
+                    "name": "Beschreibung des Entstehens",
+                    "localizedName": "Beschreibung des Entstehens",
+                    "rmType": "ELEMENT",
+                    "nodeId": "at0017",
+                    "min": 0,
+                    "max": -1,
+                    "localizedNames": {
+                      "de": "Beschreibung des Entstehens"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Weitere Beschreibung der Ursachen oder Gründe für das Entstehen (Ätiologie) eines spezifischen Problems/einer Diagnose."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0017]",
+                    "children": [
+                      {
+                        "id": "value",
+                        "name": "Beschreibung des Entstehens",
+                        "localizedName": "Beschreibung des Entstehens",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0017",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                          "de": "Beschreibung des Entstehens"
+                        },
+                        "localizedDescriptions": {
+                          "de": "Weitere Beschreibung der Ursachen oder Gründe für das Entstehen (Ätiologie) eines spezifischen Problems/einer Diagnose."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0017]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "z.B. Lokale Entzündungsreaktion mit Schädigung und Zerstörung der Leberzellen."
+                        }
+                      },
+                      {
+                        "id": "null_flavour",
+                        "name": "null_flavour",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0017]/null_flavour",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "TEXT"
+                          },
+                          {
+                            "suffix": "value",
+                            "type": "TEXT"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "feeder_audit",
+                        "name": "feeder_audit",
+                        "rmType": "FEEDER_AUDIT",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/items[at0017]/feeder_audit"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "z.B. Lokale Entzündungsreaktion mit Schädigung und Zerstörung der Leberzellen."
+                    },
+                    "cardinalities": [
+                      {
+                        "min": 0,
+                        "max": 1,
+                        "ids": [
+                          "value"
+                        ],
+                        "excludeFromWebTemplate": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "uid",
+                    "name": "uid",
+                    "rmType": "UID_BASED_ID",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/uid",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "archetype_details",
+                    "name": "archetype_details",
+                    "rmType": "ARCHETYPED",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/archetype_details"
+                  },
+                  {
+                    "id": "archetype_node_id",
+                    "name": "archetype_node_id",
+                    "rmType": "STRING",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/archetype_node_id",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/feeder_audit"
+                  },
+                  {
+                    "id": "links",
+                    "name": "links",
+                    "rmType": "LINK",
+                    "min": 0,
+                    "max": -1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.etiology.v1]/links"
+                  }
+                ]
+              },
+              {
+                "id": "datum_zeitpunkt_der_genesung",
+                "name": "Datum/Zeitpunkt der Genesung",
+                "localizedName": "Datum/Zeitpunkt der Genesung",
+                "rmType": "ELEMENT",
+                "nodeId": "at0030",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Datum/Zeitpunkt der Genesung"
+                },
+                "localizedDescriptions": {
+                  "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der von einer medizinischen Fachkraft die Genesung oder die Remission des Problems oder der Diagnose festgestellt wurde."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0030]",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Datum/Zeitpunkt der Genesung",
+                    "localizedName": "Datum/Zeitpunkt der Genesung",
+                    "rmType": "DV_DATE_TIME",
+                    "nodeId": "at0030",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Datum/Zeitpunkt der Genesung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Geschätzte oder exakte Zeit (bzw. Datum), zu der von einer medizinischen Fachkraft die Genesung oder die Remission des Problems oder der Diagnose festgestellt wurde."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0030]/value",
+                    "inputs": [
+                      {
+                        "type": "DATETIME"
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "Unvollständige Datumsangaben sind zulässig. Wenn der Patient unter einem Jahr alt ist, dann ist das vollständige Datum oder ein Minimum von Monat und Jahr notwendig, um genaue Altersberechnungen zu ermöglichen - z.B. wenn es zur Entscheidungsunterstützung verwendet wird. Datumswerte, die als \"Alter zum Zeitpunkt der Genesung\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                    }
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0030]/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0030]/feeder_audit"
+                  }
+                ],
+                "annotations": {
+                  "comment": "Unvollständige Datumsangaben sind zulässig. Wenn der Patient unter einem Jahr alt ist, dann ist das vollständige Datum oder ein Minimum von Monat und Jahr notwendig, um genaue Altersberechnungen zu ermöglichen - z.B. wenn es zur Entscheidungsunterstützung verwendet wird. Datumswerte, die als \"Alter zum Zeitpunkt der Genesung\" erfasst/importiert werden, sollten anhand des Geburtsdatums der Person in ein Datum umgewandelt werden."
+                },
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "name": "Status",
+                "localizedName": "Status",
+                "rmType": "CLUSTER",
+                "nodeId": "at0046",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                  "de": "Status"
+                },
+                "localizedDescriptions": {
+                  "de": "Strukturierte Angaben zu standort-, domänen-, episoden- oder workflow-spezifischen Aspekten des diagnostischen Prozesses."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0046]",
+                "annotations": {
+                  "comment": "Verwenden Sie Status- oder Kontext-Merkmale mit Vorsicht, da sie in der Praxis variabel eingesetzt werden und die Interoperabilität nicht gewährleistet werden kann, sofern die Verwendung nicht mit der Nutzungsgemeinschaft klar abgestimmt wird. Beispiel: aktiver Status - aktiv, inaktiv, genesen, in Remission; Entwicklungsstatus - initial, interim/working, final; zeitlicher Status - aktuell, vergangen; Episodenstatus - erstmalig, neu, laufend; Aufnahmestatus - Aufnahme, Entlassung; oder Prioritätsstatus - primär, sekundär."
+                }
+              },
+              {
+                "id": "diagnostische_sicherheit",
+                "name": "Diagnostische Sicherheit",
+                "localizedName": "Diagnostische Sicherheit",
+                "rmType": "ELEMENT",
+                "nodeId": "at0073",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Diagnostische Sicherheit"
+                },
+                "localizedDescriptions": {
+                  "de": "Grad der Sicherheit, mit der die Diagnose festgestellt wurde."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]",
+                "children": [
+                  {
+                    "id": "coded_text_value",
+                    "name": "Diagnostische Sicherheit",
+                    "localizedName": "Diagnostische Sicherheit",
+                    "rmType": "DV_CODED_TEXT",
+                    "nodeId": "at0073",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Diagnostische Sicherheit"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Grad der Sicherheit, mit der die Diagnose festgestellt wurde."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]/value",
+                    "children": [
+                      {
+                        "id": "defining_code",
+                        "name": "defining_code",
+                        "localizedName": "defining_code",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]/value/defining_code",
+                        "inputs": [
+                          {
+                            "suffix": "code",
+                            "type": "CODED_TEXT",
+                            "list": [
+                              {
+                                "value": "at0074",
+                                "label": "Vermutet",
+                                "localizedLabels": {
+                                  "de": "Vermutet"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Die Diagnose wurde mit einem niedrigen Grad an Sicherheit gestellt."
+                                }
+                              },
+                              {
+                                "value": "at0075",
+                                "label": "Wahrscheinlich",
+                                "localizedLabels": {
+                                  "de": "Wahrscheinlich"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Die Diagnose wurde mit einem hohen Maß an Sicherheit gestellt."
+                                }
+                              },
+                              {
+                                "value": "at0076",
+                                "label": "Bestätigt",
+                                "localizedLabels": {
+                                  "de": "Bestätigt"
+                                },
+                                "localizedDescriptions": {
+                                  "de": "Die Diagnose wurde anhand anerkannter Kriterien bestätigt."
+                                }
+                              }
+                            ],
+                            "terminology": "local"
+                          }
+                        ]
+                      }
+                    ],
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "CODED_TEXT",
+                        "list": [
+                          {
+                            "value": "at0074",
+                            "label": "Vermutet",
+                            "localizedLabels": {
+                              "de": "Vermutet"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Die Diagnose wurde mit einem niedrigen Grad an Sicherheit gestellt."
+                            }
+                          },
+                          {
+                            "value": "at0075",
+                            "label": "Wahrscheinlich",
+                            "localizedLabels": {
+                              "de": "Wahrscheinlich"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Die Diagnose wurde mit einem hohen Maß an Sicherheit gestellt."
+                            }
+                          },
+                          {
+                            "value": "at0076",
+                            "label": "Bestätigt",
+                            "localizedLabels": {
+                              "de": "Bestätigt"
+                            },
+                            "localizedDescriptions": {
+                              "de": "Die Diagnose wurde anhand anerkannter Kriterien bestätigt."
+                            }
+                          }
+                        ],
+                        "terminology": "local"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "text_value",
+                    "name": "Diagnostische Sicherheit",
+                    "localizedName": "Diagnostische Sicherheit",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0073",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Diagnostische Sicherheit"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Grad der Sicherheit, mit der die Diagnose festgestellt wurde."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]/feeder_audit"
+                  }
+                ],
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  },
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value",
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "diagnoseerläuterung",
+                "name": "Diagnoseerläuterung",
+                "localizedName": "Diagnoseerläuterung",
+                "rmType": "ELEMENT",
+                "nodeId": "at0069",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Diagnoseerläuterung"
+                },
+                "localizedDescriptions": {
+                  "de": "Ergänzende Beschreibung des Problems oder der Diagnose, die nicht anderweitig erfasst wurde."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0069 and name/value='Diagnoseerläuterung']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Diagnoseerläuterung",
+                    "localizedName": "Diagnoseerläuterung",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0069",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Diagnoseerläuterung"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Ergänzende Beschreibung des Problems oder der Diagnose, die nicht anderweitig erfasst wurde."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0069 and name/value='Diagnoseerläuterung']/value",
+                    "inputs": [
+                      {
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0069 and name/value='Diagnoseerläuterung']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Diagnoseerläuterung",
+                            "label": "Diagnoseerläuterung"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0069 and name/value='Diagnoseerläuterung']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0069 and name/value='Diagnoseerläuterung']/feeder_audit"
+                  }
+                ],
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "uid",
+                "name": "uid",
+                "rmType": "UID_BASED_ID",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/uid",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "archetype_details",
+                "name": "archetype_details",
+                "rmType": "ARCHETYPED",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/archetype_details"
+              },
+              {
+                "id": "archetype_node_id",
+                "name": "archetype_node_id",
+                "rmType": "STRING",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/archetype_node_id",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "name",
+                "name": "name",
+                "rmType": "DV_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/name",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "feeder_audit",
+                "name": "feeder_audit",
+                "rmType": "FEEDER_AUDIT",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/feeder_audit"
+              },
+              {
+                "id": "links",
+                "name": "links",
+                "rmType": "LINK",
+                "min": 0,
+                "max": -1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/links"
+              }
+            ]
+          },
+          {
+            "id": "tree",
+            "name": "Tree",
+            "localizedName": "Tree",
+            "rmType": "ITEM_TREE",
+            "nodeId": "at0032",
+            "min": 1,
+            "max": 1,
+            "localizedNames": {
+              "de": "Tree"
+            },
+            "localizedDescriptions": {
+              "de": "@ internal @"
+            },
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]",
+            "children": [
+              {
+                "id": "letztes_dokumentationsdatum",
+                "name": "Letztes Dokumentationsdatum",
+                "localizedName": "Letztes Dokumentationsdatum",
+                "rmType": "ELEMENT",
+                "nodeId": "at0070",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "de": "Letztes Dokumentationsdatum"
+                },
+                "localizedDescriptions": {
+                  "de": "Datum der letzten Aktualisierung der Diagnose bzw. des Problems."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0070 and name/value='Letztes Dokumentationsdatum']",
+                "children": [
+                  {
+                    "id": "value",
+                    "name": "Letztes Dokumentationsdatum",
+                    "localizedName": "Letztes Dokumentationsdatum",
+                    "rmType": "DV_DATE_TIME",
+                    "nodeId": "at0070",
+                    "min": 1,
+                    "max": 1,
+                    "localizedNames": {
+                      "de": "Letztes Dokumentationsdatum"
+                    },
+                    "localizedDescriptions": {
+                      "de": "Datum der letzten Aktualisierung der Diagnose bzw. des Problems."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0070 and name/value='Letztes Dokumentationsdatum']/value",
+                    "inputs": [
+                      {
+                        "type": "DATETIME"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "name",
+                    "name": "name",
+                    "localizedName": "name",
+                    "rmType": "DV_TEXT",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0070 and name/value='Letztes Dokumentationsdatum']/name",
+                    "inputs": [
+                      {
+                        "type": "TEXT",
+                        "list": [
+                          {
+                            "value": "Letztes Dokumentationsdatum",
+                            "label": "Letztes Dokumentationsdatum"
+                          }
+                        ],
+                        "listOpen": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "null_flavour",
+                    "name": "null_flavour",
+                    "rmType": "DV_CODED_TEXT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0070 and name/value='Letztes Dokumentationsdatum']/null_flavour",
+                    "inputs": [
+                      {
+                        "suffix": "code",
+                        "type": "TEXT"
+                      },
+                      {
+                        "suffix": "value",
+                        "type": "TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "feeder_audit",
+                    "name": "feeder_audit",
+                    "rmType": "FEEDER_AUDIT",
+                    "min": 0,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0070 and name/value='Letztes Dokumentationsdatum']/feeder_audit"
+                  }
+                ],
+                "cardinalities": [
+                  {
+                    "min": 0,
+                    "max": 1,
+                    "ids": [
+                      "value"
+                    ],
+                    "excludeFromWebTemplate": true
+                  }
+                ]
+              },
+              {
+                "id": "erweiterung",
+                "name": "Erweiterung",
+                "localizedName": "Erweiterung",
+                "rmType": "CLUSTER",
+                "nodeId": "at0071",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                  "de": "Erweiterung"
+                },
+                "localizedDescriptions": {
+                  "de": "Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/items[at0071]",
+                "annotations": {
+                  "comment": "Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle."
+                }
+              },
+              {
+                "id": "uid",
+                "name": "uid",
+                "rmType": "UID_BASED_ID",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/uid",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "archetype_details",
+                "name": "archetype_details",
+                "rmType": "ARCHETYPED",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/archetype_details"
+              },
+              {
+                "id": "archetype_node_id",
+                "name": "archetype_node_id",
+                "rmType": "STRING",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/archetype_node_id",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "name",
+                "name": "name",
+                "rmType": "DV_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/name",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "feeder_audit",
+                "name": "feeder_audit",
+                "rmType": "FEEDER_AUDIT",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/feeder_audit"
+              },
+              {
+                "id": "links",
+                "name": "links",
+                "rmType": "LINK",
+                "min": 0,
+                "max": -1,
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/protocol[at0032]/links"
+              }
+            ]
+          },
+          {
+            "id": "workflow_id",
+            "name": "workflow_id",
+            "rmType": "OBJECT_REF",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/workflow_id"
+          },
+          {
+            "id": "archetype_node_id",
+            "name": "archetype_node_id",
+            "rmType": "STRING",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/archetype_node_id",
+            "inputs": [
+              {
+                "type": "TEXT"
+              }
+            ]
+          },
+          {
+            "id": "subject",
+            "name": "subject",
+            "rmType": "PARTY_PROXY",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/subject",
+            "inputs": [
+              {
+                "suffix": "id",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_scheme",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_namespace",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "name",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "language",
+            "name": "language",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/language",
+            "inContext": true
+          },
+          {
+            "id": "encoding",
+            "name": "encoding",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/encoding",
+            "inContext": true
+          },
+          {
+            "id": "uid",
+            "name": "uid",
+            "rmType": "UID_BASED_ID",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/uid",
+            "inputs": [
+              {
+                "type": "TEXT"
+              }
+            ]
+          },
+          {
+            "id": "guideline_id",
+            "name": "guideline_id",
+            "rmType": "OBJECT_REF",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/guideline_id"
+          },
+          {
+            "id": "archetype_details",
+            "name": "archetype_details",
+            "rmType": "ARCHETYPED",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/archetype_details"
+          },
+          {
+            "id": "provider",
+            "name": "provider",
+            "rmType": "PARTY_PROXY",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/provider",
+            "inputs": [
+              {
+                "suffix": "id",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_scheme",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_namespace",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "name",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "name",
+            "name": "name",
+            "rmType": "DV_TEXT",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/name",
+            "inputs": [
+              {
+                "type": "TEXT"
+              }
+            ]
+          },
+          {
+            "id": "feeder_audit",
+            "name": "feeder_audit",
+            "rmType": "FEEDER_AUDIT",
+            "min": 0,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/feeder_audit"
+          },
+          {
+            "id": "links",
+            "name": "links",
+            "rmType": "LINK",
+            "min": 0,
+            "max": -1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/links"
+          },
+          {
+            "id": "other_participations",
+            "name": "other_participations",
+            "rmType": "PARTICIPATION",
+            "min": 0,
+            "max": -1,
+            "aqlPath": "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/other_participations",
+            "inContext": true
+          }
+        ],
+        "annotations": {
+          "comment": "Eine klare Abgrenzung zwischen Problem und Diagnose ist in der Praxis nicht einfach zu erreichen. Für die Zwecke der klinischen Dokumentation mit diesem Archetyp werden Problem und Diagnose als ein Kontinuum betrachtet, mit zunehmendem Detaillierungsgrad und unterstützenden Beweisen, die in der Regel dem Etikett \"Diagnose\" Gewicht verleihen."
+        },
+        "cardinalities": [
+          {
+            "min": 0,
+            "max": 1,
+            "ids": [
+              "tree"
+            ],
+            "excludeFromWebTemplate": true
+          }
+        ]
+      },
+      {
+        "id": "name",
+        "name": "name",
+        "localizedName": "name",
+        "rmType": "DV_TEXT",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/name",
+        "inputs": [
+          {
+            "type": "TEXT",
+            "list": [
+              {
+                "value": "Diagnose",
+                "label": "Diagnose"
+              }
+            ],
+            "listOpen": false
+          }
+        ]
+      },
+      {
+        "id": "archetype_node_id",
+        "name": "archetype_node_id",
+        "rmType": "STRING",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/archetype_node_id",
+        "inputs": [
+          {
+            "type": "TEXT"
+          }
+        ]
+      },
+      {
+        "id": "composer",
+        "name": "composer",
+        "rmType": "PARTY_PROXY",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/composer",
+        "inputs": [
+          {
+            "suffix": "id",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "id_scheme",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "id_namespace",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "name",
+            "type": "TEXT"
+          }
+        ],
+        "inContext": true
+      },
+      {
+        "id": "language",
+        "name": "language",
+        "rmType": "CODE_PHRASE",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/language",
+        "inContext": true
+      },
+      {
+        "id": "uid",
+        "name": "uid",
+        "rmType": "UID_BASED_ID",
+        "min": 0,
+        "max": 1,
+        "aqlPath": "/uid",
+        "inputs": [
+          {
+            "type": "TEXT"
+          }
+        ]
+      },
+      {
+        "id": "archetype_details",
+        "name": "archetype_details",
+        "rmType": "ARCHETYPED",
+        "min": 0,
+        "max": 1,
+        "aqlPath": "/archetype_details"
+      },
+      {
+        "id": "feeder_audit",
+        "name": "feeder_audit",
+        "rmType": "FEEDER_AUDIT",
+        "min": 0,
+        "max": 1,
+        "aqlPath": "/feeder_audit"
+      },
+      {
+        "id": "links",
+        "name": "links",
+        "rmType": "LINK",
+        "min": 0,
+        "max": -1,
+        "aqlPath": "/links"
+      },
+      {
+        "id": "territory",
+        "name": "territory",
+        "rmType": "CODE_PHRASE",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/territory",
+        "inContext": true
+      }
+    ],
+    "cardinalities": [
+      {
+        "min": 0,
+        "max": 1,
+        "ids": [
+          "context"
+        ],
+        "excludeFromWebTemplate": true
+      }
+    ]
+  }
+}
