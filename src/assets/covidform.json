@@ -130,7 +130,8 @@
               }
             } ]
           } ]
-        }, {
+        },
+         {
           "id" : "date_first_admitted",
           "name" : "Date first admitted",
           "localizedName" : "Date first admitted",
