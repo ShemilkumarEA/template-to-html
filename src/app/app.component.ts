@@ -6,6 +6,7 @@ import covidForm from '../assets/covidform.json';
 import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
+import demo from '../assets/demo.v0.json';
 
 interface TreeNode {
   id: string;
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
     // const rawHtml = this.printNodeIds(covidForm.tree);
     // const rawHtml = this.printNodeIds(opd.tree);
     // const rawHtml = this.printNodeIds(allergy.tree);
-    const rawHtml = this.printNodeIds(term1.tree);
+    // const rawHtml = this.printNodeIds(term1.tree);
+    const rawHtml = this.printNodeIds(demo.tree);
     console.log('Generated HTML:', rawHtml);
     this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
   }
@@ -48,7 +50,7 @@ export class AppComponent implements OnInit {
       node.inputs.forEach((child: any) => {
         switch (child.suffix) {
           case 'magnitude': {
-            html += `<input type="number" id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation?.range.min}" max="${child.validation?.range.max}">`;
+            html += `<input type="number" id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation?.range?.min}" max="${child.validation?.range?.max}">`;
             break;
           }
           case 'unit': {
@@ -167,6 +169,11 @@ export class AppComponent implements OnInit {
     } </label> <input type="time" / > <br>`;
     return html;
   }
+  dvMultimedia(node: any): string {
+    let html: string = '';
+    html += `<input type="file" id="myFile" name="filename">`;
+    return html;
+  }
 
   rmClassifier(node: any): string {
     let html = '';
@@ -222,6 +229,10 @@ export class AppComponent implements OnInit {
           html += this.dvTime(node);
           break;
         }
+        case 'DV_MULTIMEDIA': {
+          html += this.dvMultimedia(node);
+          break;
+        }
         default:
           html += `<h3>${node.name} + ${node.rmType}</h3>`;
           console.log('Non-coded ui RmType' + node.name + ' ' + node.rmType);
@@ -265,7 +276,6 @@ export class AppComponent implements OnInit {
     let html = '';
     if (!node.inContext) {
       html += this.rmClassifier(node);
-      // console.log(node.id + ' : ' + node.rmType);
     }
 
     if (node.children && node.children.length > 0) {
