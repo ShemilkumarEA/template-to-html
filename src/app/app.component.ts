@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 // import inputJson from '../assets/term-v1.json'
 // import inputJson from '../assets/bloodpressure.json'
-import inputJson from '../assets/covidform.json'
+// import inputJson from '../assets/covidform.json'
+import inputJson from '../assets/Diagnosis.json'
 
 @Component({
   selector: 'app-root',
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit {
         input{
           width: 100%;
           padding: 0.5rem;
+          margin-bottom: 0.25rem;
         }
         select {
           width: 100%;
@@ -60,9 +62,11 @@ export class AppComponent implements OnInit {
     `;
 
     switch (node.rmType) {
-      // case 'EVENT_CONTEXT':
       case 'COMPOSITION':
       case 'OBSERVATION':
+      case 'EVENT_CONTEXT':
+      case 'EVALUATION':
+      case 'ITEM_TREE':
       case 'SECTION':
         html += `<div><h2>${node.name || node.localizedName}</h2>`;
         if (node.children) {
@@ -104,17 +108,49 @@ export class AppComponent implements OnInit {
         }
         break;
 
-      case 'DV_TEXT':
       case 'DV_MULTIMEDIA':
-        console.log(4);
         html += `<label> ${node.name || node.localizedName} </label><input type="text" / > <br>`;
         break;
 
+      case 'DV_TEXT':
+
+        if (node.id === "name") break;
+
+        if (node.inputs[0]?.list) {
+          const radios = node.inputs[0]?.list.map((input: any) => {
+            return `
+              <div  style="display: flex; align-items: center; align-content: center">
+                <input type="radio" name= ${node.name} value=${input.value} style="width: 1rem; height: 1rem;" margin: 0/>
+                <label>${input.label}</label>
+              </div>
+            `
+          }).join('');
+
+          html += `<div style="display: flex; flex-direction: column">
+                  <label> ${node.name || node.localizedName} </label>
+                  ${radios}</div>`
+
+        } else {
+          html += `<label> ${node.name || node.localizedName} </label>`;
+          html += `<input type="text" / > <br>`
+        }
+        break;
+
+      case 'DV_BOOLEAN':
+        html += `
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="checkbox" id=${node.id} name=${node.name} style="width: 1rem; height: 1rem;" />
+            <label >${node.name || node.localizedName}</label>
+          </div>
+        `
+        break;
+
       case 'DV_CODED_TEXT':
-        html += `<label> ${node.name || node.localizedName} </label>`;
 
         node.inputs?.forEach((input: any) => {
           if (input.type === 'CODED_TEXT' && input.list) {
+
+            html += `<label> ${node.name || node.localizedName} </label>`;
 
             let options = input.list?.map((value: any) => `<option>${value.label}</option>`).join('');
 
@@ -126,8 +162,9 @@ export class AppComponent implements OnInit {
               <br>
             `;
 
-          } else
-            html += `<label>(${input.suffix}) </label><input type="text" /> <br>`;
+          }
+          // else
+          //   html += `<label>(${input.suffix}) </label><input type="text" /> <br>`;
         });
         break;
 
@@ -146,7 +183,6 @@ export class AppComponent implements OnInit {
       case 'EVENT':
       case 'CLUSTER':
       case 'ELEMENT':
-        console.log(5);
         if (node.name !== 'Any event') html += `<div> <h2>${node.name || node.localizedName} </h2>`;
         if (node.children) {
           node.children.forEach((child: any) => {
@@ -158,14 +194,13 @@ export class AppComponent implements OnInit {
 
       case 'PARTY_PROXY':
       case 'CODE_PHRASE':
-        console.log(6);
         node.inputs?.forEach((input: any) => {
           html += `<label>${node.name || node.localizedName} (${input.suffix})</label><input type="text" /><br>`;
         });
         break;
 
       default:
-        html += `<p>Unsupported rmType: ${node.rmType}</p>`;
+      // html += `<p>Unsupported rmType: ${node.rmType}</p>`;
     }
 
     html += '</div>'
