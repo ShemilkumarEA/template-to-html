@@ -1,2 +1,4 @@
-<!-- <input type="file" [(ngModel)]="file" (change)="convertToHtml($event)"> -->
-<div [innerHTML]="htmlContent"></div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div [innerHTML]="htmlContent"></div>
+  <button type="submit">Submit</button>
+</form>

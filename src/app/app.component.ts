@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 import bloodpressure from '../assets/bloodpressure.json';
 import covidForm from '../assets/covidform.json';
@@ -8,13 +13,8 @@ import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
-import {
-  DvCodedText,
-  DvDateTime,
-  DvInterval,
-  DvText,
-} from './models/DVrmType.interface';
 import { TreeNode } from './models/basicRmTypes.interface';
+import { Children, Tree } from './models/genModels.interface';
 
 @Component({
   selector: 'app-root',
@@ -23,38 +23,54 @@ import { TreeNode } from './models/basicRmTypes.interface';
 })
 export class AppComponent implements OnInit {
   title = 'template-to-html';
-
   htmlContent: SafeHtml = '';
-
-  constructor(private sanitizer: DomSanitizer) {}
-  html: string = '';
+  form: FormGroup;
   jsonData: TreeNode[] = [];
 
+  constructor(private sanitizer: DomSanitizer, private fb: FormBuilder) {
+    this.form = this.fb.group({});
+  }
+
   ngOnInit() {
-    // const rawHtml = this.printNodeIds(bloodpressure.tree);
     this.jsonData.push(bloodpressure.tree);
-    // const rawHtml = this.printNodeIds(covidForm.tree);
-    const rawHtml = this.printNodeIds(opd.tree);
-    // const rawHtml = this.printNodeIds(allergy.tree);
-    // const rawHtml = this.printNodeIds(term1.tree);
-    // const rawHtml = this.printNodeIds(demo.tree);
+    // const rawHtml = this.printNodeIds(opd.tree);
+    const rawHtml = this.printNodeIds(bloodpressure.tree);
+
     console.log('Generated HTML:', rawHtml);
     this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
   }
 
-  dvQuantity(node: any): string {
-    let html: string = '';
-    html += `<label>${node.name} :  </label>`;
+  createFormControl(node: Children) {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
+        if (child.suffix) {
+          const controlName = `${node.id}_${child.suffix}`;
+          const validators = child.validation
+            ? [
+                Validators.min(child.validation.range.min),
+                Validators.max(child.validation.range.max),
+              ]
+            : [];
+          this.form.addControl(controlName, new FormControl('', validators));
+        }
+      });
+    }
+  }
+
+  dvQuantity(node: Children): string {
+    let html: string = '';
+    html += `<label>${node.name} : </label>`;
+    if (node.inputs) {
+      node.inputs.forEach((child: any) => {
+        const controlName = `${node.id}_${child.suffix}`;
         switch (child.suffix) {
           case 'magnitude': {
-            html += `<input type="number" id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation?.range?.min}" max="${child.validation?.range?.max}">`;
+            html += `<input type="number" formControlName="${controlName}" min="${child.validation?.range?.min}" max="${child.validation?.range?.max}">`;
             break;
           }
           case 'unit': {
             if (child.list && child.list.length > 0) {
-              html += `<select id="${child.suffix}_unit" name="${child.suffix}_unit">`;
+              html += `<select formControlName="${controlName}">`;
               child.list.forEach((item: any) => {
                 html += `<option value="${item.value}">${item.label}</option>`;
               });
@@ -67,114 +83,144 @@ export class AppComponent implements OnInit {
         }
       });
     }
+    this.createFormControl(node);
     return html;
   }
 
-  dvDuration(node: any): string {
+  dvDuration(node: Children): string {
     let html: string = '';
     html += `<label>${node.name || node.localizedName || node.id} : </label>`;
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
-        html += `<label for="${child.suffix}_unit">${child.suffix}:</label>`;
-        //TO Check Below range Validation is
-        html += `<input type="number" class='duration'id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation.range.min}" max="${child.validation.range.max}"> &nbsp; &nbsp;`;
+        const controlName = `${node.id}_${child.suffix}`;
+        html += `<label for="${controlName}">${child.suffix}:</label>`;
+        html += `<input type="number" formControlName="${controlName}" min="${child.validation.range.min}" max="${child.validation.range.max}"> &nbsp; &nbsp;`;
       });
     }
+    this.createFormControl(node);
     return html;
   }
 
-  dvDateTime(node: DvDateTime): string {
+  dvDateTime(node: Children): string {
     let html: string = '';
+    const controlName = `${node.id}_datetime`;
     html += `<label>${
       node.name || node.localizedName || node.id
-    }</label> : <input type="datetime-local" /><br>`;
+    }</label> : <input type="datetime-local" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
     return html;
   }
 
-  dvCodedText(node: DvCodedText): string {
+  dvCodedText(node: Children): string {
     let html: string = '';
     html += `<label>${node.name || node.localizedName || node.id} : </label>`;
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
+        const controlName = `${node.id}_${child.suffix}`;
         if (child.list && child.list.length > 0) {
-          html += `<select id="${child.suffix}_unit" name="${child.suffix}_unit">`;
+          html += `<select formControlName="${controlName}">`;
           html += `<option></option>`;
           child.list.forEach((item: any) => {
             html += `<option value="${item.value}">${item.label}</option>`;
           });
           html += `</select><br>`;
         }
+        this.form.addControl(controlName, new FormControl(''));
       });
     }
+    this.createFormControl(node);
     return html;
   }
 
-  dvText(node: DvText): string {
+  dvText(node: Children): string {
     let html: string = '';
+    const controlName = `${node.id}_text`;
     html += `<label>${
       node.name || node.localizedName
-    }</label> : <input type="text" /><br>`;
+    }</label> : <input type="text" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
     return html;
   }
-  dvCount(node: any): string {
+
+  dvCount(node: Children): string {
     let html: string = '';
+    const controlName = `${node.id}_count`;
     html += `<label>${
       node.name || node.localizedName
-    }</label> : <input type="number" /><br>`;
+    }</label> : <input type="number" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
     return html;
   }
 
-  dvProportion(node: any): string {
+  dvProportion(node: Children): string {
     let html: string = '';
-    html += `<label> ${
+    const controlName = `${node.id}_proportion`;
+    html += `<label>${
       node.name || node.localizedName
-    } </label> <input type="number" / > <br>`;
+    }</label> : <input type="number" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
     return html;
   }
 
-  dvIdentifier(node: any): string {
+  dvIdentifier(node: Children): string {
     let html: string = '';
     html += `<h3>${node.name || node.localizedName}</h3>`;
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
-        html += `<label> ${child.suffix} </label> : <input type="text" / > <br>`;
+        const controlName = `${node.id}_${child.suffix}`;
+        html += `<label> ${child.suffix} </label> : <input type="text" formControlName="${controlName}"/><br>`;
+        this.form.addControl(controlName, new FormControl(''));
       });
     }
+    this.createFormControl(node);
+    return html;
+  }
 
-    return html;
-  }
-  dvBoolean(node: any): string {
+  dvBoolean(node: Children): string {
     let html: string = '';
-    html += `<input type="checkbox" id="${node.id}" name="${node.name}" value="${node.id}">
-  <label for="${node.name}"> ${node.name}</label><br>`;
+    const controlName = `${node.id}_boolean`;
+    html += `<input type="checkbox" formControlName="${controlName}" id="${node.id}" name="${node.name}" value="${node.id}">`;
+    html += `<label for="${node.name}"> ${node.name}</label><br>`;
+    this.form.addControl(controlName, new FormControl(false));
     return html;
   }
-  dvInterval(node: DvInterval<DvDateTime>): string {
+
+  dvInterval(node: Children): string {
     let html: string = '';
     html += `<h4>${node.name || node.localizedName} Interval</h4>`;
-    return html;
-  }
-  dvDate(node: any): string {
-    let html: string = '';
-    html += `<label> ${
-      node.name || node.localizedName
-    } </label> <input type="date" / > <br>`;
-    return html;
-  }
-  dvTime(node: any): string {
-    let html: string = '';
-    html += `<label> ${
-      node.name || node.localizedName
-    } </label> <input type="time" / > <br>`;
-    return html;
-  }
-  dvMultimedia(node: any): string {
-    let html: string = '';
-    html += `<input type="file" id="myFile" name="filename">`;
+    this.createFormControl(node);
     return html;
   }
 
-  rmClassifier(node: any): string {
+  dvDate(node: Children): string {
+    let html: string = '';
+    const controlName = `${node.id}_date`;
+    html += `<label>${
+      node.name || node.localizedName
+    }</label> : <input type="date" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
+    return html;
+  }
+
+  dvTime(node: Children): string {
+    let html: string = '';
+    const controlName = `${node.id}_time`;
+    html += `<label>${
+      node.name || node.localizedName
+    }</label> : <input type="time" formControlName="${controlName}"/><br>`;
+    this.form.addControl(controlName, new FormControl(''));
+    return html;
+  }
+
+  dvMultimedia(node: Children): string {
+    let html: string = '';
+    const controlName = `${node.id}_file`;
+    html += `<input type="file" formControlName="${controlName}" id="myFile" name="filename">`;
+    this.form.addControl(controlName, new FormControl(''));
+    return html;
+  }
+
+  rmClassifier(node: Children): string {
     let html = '';
     html += `<div class="${node.rmType}">`;
 
@@ -221,7 +267,7 @@ export class AppComponent implements OnInit {
           break;
         }
         case 'DV_DATE': {
-          html += this.dvDateTime(node);
+          html += this.dvDate(node);
           break;
         }
         case 'DV_TIME': {
@@ -240,7 +286,7 @@ export class AppComponent implements OnInit {
       switch (node.rmType) {
         case 'COMPOSITION': {
           html += `<h1>${node.name}</h1>`;
-          html += `<p>${node.localizedDescriptions.en}</p>`;
+          html += `<p>${node.localizedDescriptions?.en}</p>`;
           break;
         }
         case 'OBSERVATION':
@@ -271,7 +317,7 @@ export class AppComponent implements OnInit {
     return html;
   }
 
-  printNodeIds(node: any): string {
+  printNodeIds(node: Children): string {
     let html = '';
     if (!node.inContext) {
       html += this.rmClassifier(node);
@@ -284,7 +330,10 @@ export class AppComponent implements OnInit {
     }
 
     html += `</div>`;
-
     return html;
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
   }
 }
