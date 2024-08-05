@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import bloodpressure from '../assets/bloodpressure.json';
 import covidForm from '../assets/covidform.json';
@@ -7,17 +8,13 @@ import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
-
-interface TreeNode {
-  id: string;
-  name: string;
-  rmType: string;
-  min: number;
-  max: number;
-  aqlPath: string;
-  children?: TreeNode[];
-  inContext?: boolean;
-}
+import {
+  DvCodedText,
+  DvDateTime,
+  DvInterval,
+  DvText,
+} from './models/DVrmType.interface';
+import { TreeNode } from './models/basicRmTypes.interface';
 
 @Component({
   selector: 'app-root',
@@ -26,19 +23,21 @@ interface TreeNode {
 })
 export class AppComponent implements OnInit {
   title = 'template-to-html';
-  jsonData: any;
+
   htmlContent: SafeHtml = '';
 
   constructor(private sanitizer: DomSanitizer) {}
   html: string = '';
+  jsonData: TreeNode[] = [];
 
   ngOnInit() {
     // const rawHtml = this.printNodeIds(bloodpressure.tree);
+    this.jsonData.push(bloodpressure.tree);
     // const rawHtml = this.printNodeIds(covidForm.tree);
-    // const rawHtml = this.printNodeIds(opd.tree);
+    const rawHtml = this.printNodeIds(opd.tree);
     // const rawHtml = this.printNodeIds(allergy.tree);
     // const rawHtml = this.printNodeIds(term1.tree);
-    const rawHtml = this.printNodeIds(demo.tree);
+    // const rawHtml = this.printNodeIds(demo.tree);
     console.log('Generated HTML:', rawHtml);
     this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
   }
@@ -84,7 +83,7 @@ export class AppComponent implements OnInit {
     return html;
   }
 
-  dvDateTime(node: any): string {
+  dvDateTime(node: DvDateTime): string {
     let html: string = '';
     html += `<label>${
       node.name || node.localizedName || node.id
@@ -92,7 +91,7 @@ export class AppComponent implements OnInit {
     return html;
   }
 
-  dvCodedText(node: any): string {
+  dvCodedText(node: DvCodedText): string {
     let html: string = '';
     html += `<label>${node.name || node.localizedName || node.id} : </label>`;
     if (node.inputs) {
@@ -110,7 +109,7 @@ export class AppComponent implements OnInit {
     return html;
   }
 
-  dvText(node: any): string {
+  dvText(node: DvText): string {
     let html: string = '';
     html += `<label>${
       node.name || node.localizedName
@@ -150,7 +149,7 @@ export class AppComponent implements OnInit {
   <label for="${node.name}"> ${node.name}</label><br>`;
     return html;
   }
-  dvInterval(node: any): string {
+  dvInterval(node: DvInterval<DvDateTime>): string {
     let html: string = '';
     html += `<h4>${node.name || node.localizedName} Interval</h4>`;
     return html;
