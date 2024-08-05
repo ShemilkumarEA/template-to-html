@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import jsonData from '../assets/bloodpressure.json';
+import bloodpressure from '../assets/bloodpressure.json';
+import covidForm from '../assets/covidform.json';
+import opd from '../assets/opd.json';
+import allergy from '../assets/allergy.json';
+import term1 from '../assets/term-v1.json';
+import demo from '../assets/demo.v0.json';
 import { Children } from './models/genModels.interface';
 
 @Component({
@@ -16,7 +21,12 @@ export class AppComponent implements OnInit {
   fields: FormlyFieldConfig[] = [];
 
   ngOnInit(): void {
-    this.fields = this.mapJsonToFormly(jsonData);
+    // this.fields = this.mapJsonToFormly(bloodpressure);
+    // this.fields = this.mapJsonToFormly(covidForm);
+    // this.fields = this.mapJsonToFormly(opd);
+    // this.fields = this.mapJsonToFormly(allergy);
+    // this.fields = this.mapJsonToFormly(term1);
+    this.fields = this.mapJsonToFormly(demo);
   }
   dvQuantity(
     node: Children,
@@ -85,12 +95,21 @@ export class AppComponent implements OnInit {
     }
   }
 
-  dvDateTime(node: Children): string {
-    let html: string = '';
-    html += `<label>${
-      node.name || node.localizedName || node.id
-    }</label> : <input type="datetime-local" /><br>`;
-    return html;
+  dvDateTime(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName || node.id,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+        type: 'datetime-local',
+      },
+    });
   }
 
   dvCodedText(
@@ -111,75 +130,136 @@ export class AppComponent implements OnInit {
               label: node.name,
               options: options,
             },
+            className: 'inline-field', // Add this line to make the field inline
           });
         }
       });
     }
   }
 
-  dvText(node: Children): string {
-    let html: string = '';
-    html += `<label>${
-      node.name || node.localizedName
-    }</label> : <input type="text" /><br>`;
-    return html;
+  dvText(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+      },
+    });
   }
-  dvCount(node: Children): string {
-    let html: string = '';
-    html += `<label>${
-      node.name || node.localizedName
-    }</label> : <input type="number" /><br>`;
-    return html;
+  dvCount(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+        type: 'number',
+      },
+    });
   }
 
-  dvProportion(node: Children): string {
-    let html: string = '';
-    html += `<label> ${
-      node.name || node.localizedName
-    } </label> <input type="number" / > <br>`;
-    return html;
+  dvProportion(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+        type: 'number',
+      },
+    });
   }
 
-  dvIdentifier(node: Children): string {
-    let html: string = '';
-    html += `<h3>${node.name || node.localizedName}</h3>`;
+  dvIdentifier(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
-        html += `<label> ${child.suffix} </label> : <input type="text" / > <br>`;
+        fields.push({
+          key: aqlPath + `/${child.suffix}`,
+          type: 'input',
+          templateOptions: {
+            label: child.suffix + ' : ',
+            placeholder: `Enter ${child.suffix}`,
+            required: node.min === 1,
+          },
+        });
       });
     }
-
-    return html;
   }
-  dvBoolean(node: Children): string {
-    let html: string = '';
-    html += `<input type="checkbox" id="${node.id}" name="${node.name}" value="${node.id}">
-  <label for="${node.name}"> ${node.name}</label><br>`;
-    return html;
+  dvBoolean(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
+    fields.push({
+      key: aqlPath,
+      type: 'checkbox',
+      templateOptions: {
+        label: node.name,
+        id: node.id,
+        name: node.name,
+        value: node.id,
+      },
+    });
   }
-  dvInterval(node: Children): string {
-    let html: string = '';
-    html += `<h4>${node.name || node.localizedName} Interval</h4>`;
-    return html;
+  dvInterval(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
+    fields.push({
+      template: `<h4>${node.name || node.localizedName} Interval</h4>`,
+    });
   }
-  dvDate(node: Children): string {
-    let html: string = '';
-    html += `<label> ${
-      node.name || node.localizedName
-    } </label> <input type="date" / > <br>`;
-    return html;
+  dvDate(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+        type: 'date',
+      },
+    });
   }
-  dvTime(node: Children): string {
-    let html: string = '';
-    html += `<label> ${
-      node.name || node.localizedName
-    } </label> <input type="time" / > <br>`;
-    return html;
+  dvTime(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name || node.localizedName,
+        placeholder: `Enter ${node.name}`,
+        required: node.min === 1,
+        type: 'time',
+      },
+    });
   }
-  dvMultimedia(node: Children): string {
-    let html: string = '';
-    html += `<input type="file" id="myFile" name="filename">`;
-    return html;
+  dvMultimedia(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
+    fields.push({
+      key: aqlPath,
+      type: 'input',
+      templateOptions: {
+        label: node.name,
+        placeholder: `Select ${node.name}`,
+        type: 'file',
+      },
+    });
   }
 
   rmClassifier(
@@ -205,43 +285,43 @@ export class AppComponent implements OnInit {
           break;
         }
         case 'DV_DATE_TIME': {
-          html += this.dvDateTime(node);
+          this.dvDateTime(node, fields, aqlPath);
           break;
         }
         case 'DV_TEXT': {
-          html += this.dvText(node);
+          this.dvText(node, fields, aqlPath);
           break;
         }
         case 'DV_PROPORTION': {
-          html += this.dvProportion(node);
+          this.dvProportion(node, fields, aqlPath);
           break;
         }
         case 'DV_IDENTIFIER': {
-          html += this.dvIdentifier(node);
+          this.dvIdentifier(node, fields, aqlPath);
           break;
         }
         case 'DV_BOOLEAN': {
-          html += this.dvBoolean(node);
+          this.dvBoolean(node, fields, aqlPath);
           break;
         }
         case 'DV_COUNT': {
-          html += this.dvCount(node);
+          this.dvCount(node, fields, aqlPath);
           break;
         }
         case 'DV_INTERVAL<DV_DATE_TIME>': {
-          html += this.dvInterval(node);
+          this.dvInterval(node, fields, aqlPath);
           break;
         }
         case 'DV_DATE': {
-          html += this.dvDateTime(node);
+          this.dvDateTime(node, fields, aqlPath);
           break;
         }
         case 'DV_TIME': {
-          html += this.dvTime(node);
+          this.dvTime(node, fields, aqlPath);
           break;
         }
         case 'DV_MULTIMEDIA': {
-          html += this.dvMultimedia(node);
+          this.dvMultimedia(node, fields, aqlPath);
           break;
         }
         default:
@@ -251,8 +331,11 @@ export class AppComponent implements OnInit {
     } else {
       switch (node.rmType) {
         case 'COMPOSITION': {
-          html += `<h1>${node.name}</h1>`;
-          html += `<p>${node.localizedDescriptions?.en}</p>`;
+          fields.push({
+            template: `<h1>${node.name}</h1><p>${
+              node.localizedDescriptions?.en || ''
+            }</p>`,
+          });
           break;
         }
         case 'OBSERVATION':
@@ -265,7 +348,10 @@ export class AppComponent implements OnInit {
         case 'EVALUATION':
         case 'ELEMENT':
         case 'CLUSTER': {
-          html += `<h3>${node.name}</h3>`;
+          fields.push({
+            template: `<h3>${node.name}</h3>`,
+          });
+
           break;
         }
 
@@ -274,7 +360,9 @@ export class AppComponent implements OnInit {
           break;
         }
         default:
-          html += `<h3>${node.name} + ${node.rmType}</h3>`;
+          fields.push({
+            template: `<h3>${node.name} + ${node.rmType}</h3>`,
+          });
           console.log(
             'Non-coded structure RmType' + node.name + ' ' + node.rmType
           );
