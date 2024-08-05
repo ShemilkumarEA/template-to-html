@@ -48,23 +48,41 @@ export class AppComponent implements OnInit {
 
   //   return fields;
   // }
-  dvQuantity(node: any): string {
-    let html: string = '';
-    html += `<label>${node.name} :  </label>`;
+  dvQuantity(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
         switch (child.suffix) {
           case 'magnitude': {
-            html += `<input type="number" id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation?.range?.min}" max="${child.validation?.range?.max}">`;
+            fields.push({
+              key: aqlPath + `/${child.suffix}`,
+              type: 'input',
+              templateOptions: {
+                label: node.name + ' : ',
+                placeholder: `Enter ${node.name}`,
+                required: node.min === 1,
+                min: child.validation?.range?.min,
+                max: child.validation?.range?.max,
+              },
+            });
             break;
           }
           case 'unit': {
             if (child.list && child.list.length > 0) {
-              html += `<select id="${child.suffix}_unit" name="${child.suffix}_unit">`;
-              child.list.forEach((item: any) => {
-                html += `<option value="${item.value}">${item.label}</option>`;
+              const options = child.list.map((item: any) => {
+                return { value: item.value, label: item.label };
               });
-              html += `</select>`;
+              fields.push({
+                key: aqlPath + `/${child.suffix}`,
+                type: 'select',
+                templateOptions: {
+                  // label: node.name + ' ' + child.suffix,
+                  options: options,
+                },
+              });
             }
             break;
           }
@@ -73,7 +91,6 @@ export class AppComponent implements OnInit {
         }
       });
     }
-    return html;
   }
 
   dvDuration(node: any): string {
@@ -199,7 +216,7 @@ export class AppComponent implements OnInit {
           break;
         }
         case 'DV_QUANTITY': {
-          html += this.dvQuantity(node);
+          this.dvQuantity(node, fields, aqlPath);
           break;
         }
         case 'DV_DATE_TIME': {
@@ -286,7 +303,7 @@ export class AppComponent implements OnInit {
       const aqlPath = parentPath + node.aqlPath;
 
       if (!node.inContext) {
-        console.log(node.id);
+        console.log(node.id + ' ' + node.rmType);
         this.rmClassifier(node, fields, aqlPath);
       }
       //Below contains all the renderable fields just for reference
@@ -296,7 +313,7 @@ export class AppComponent implements OnInit {
             key: aqlPath + (input.suffix ? `/${input.suffix}` : ''),
             type: 'input',
             props: {
-              label: node.name + ' ' + input.suffix,
+              label: node.name + ' ' + node.rmType + ' ' + input.suffix,
               placeholder: `Enter ${node.name}`,
               required: node.min === 1,
             },
