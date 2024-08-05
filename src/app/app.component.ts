@@ -18,36 +18,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.fields = this.mapJsonToFormly(jsonData);
   }
-
-  // mapJsonToFormly(jsonData: any): FormlyFieldConfig[] {
-  //   const fields: FormlyFieldConfig[] = [];
-
-  //   const processNode = (node: any, parentPath: string = '') => {
-  //     const aqlPath = parentPath + node.aqlPath;
-
-  //     if (node.inputs) {
-  //       node.inputs.forEach((input: any) => {
-  //         fields.push({
-  //           key: aqlPath + (input.suffix ? `/${input.suffix}` : ''),
-  //           type: 'input',
-  //           props: {
-  //             label: node.name,
-  //             placeholder: `Enter ${node.name}`,
-  //             required: node.min === 1,
-  //           },
-  //         });
-  //       });
-  //     }
-
-  //     if (node.children) {
-  //       node.children.forEach((child: any) => processNode(child, aqlPath));
-  //     }
-  //   };
-
-  //   processNode(jsonData.tree);
-
-  //   return fields;
-  // }
   dvQuantity(
     node: Children,
     fields: FormlyFieldConfig[],
@@ -93,17 +63,26 @@ export class AppComponent implements OnInit {
     }
   }
 
-  dvDuration(node: any): string {
-    let html: string = '';
-    html += `<label>${node.name || node.localizedName || node.id} : </label>`;
+  dvDuration(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
-        html += `<label for="${child.suffix}_unit">${child.suffix}:</label>`;
-        //TO Check Below range Validation is
-        html += `<input type="number" class='duration'id="${child.suffix}_magnitude" name="${child.suffix}_magnitude" min="${child.validation.range.min}" max="${child.validation.range.max}"> &nbsp; &nbsp;`;
+        fields.push({
+          key: aqlPath + `/${child.suffix}_magnitude`,
+          type: 'input',
+          templateOptions: {
+            label: child.suffix + ' : ',
+            placeholder: `Enter ${child.suffix}`,
+            required: node.min === 1,
+            min: child.validation?.range?.min,
+            max: child.validation?.range?.max,
+          },
+        });
       });
     }
-    return html;
   }
 
   dvDateTime(node: Children): string {
@@ -114,22 +93,28 @@ export class AppComponent implements OnInit {
     return html;
   }
 
-  dvCodedText(node: Children): string {
-    let html: string = '';
-    html += `<label>${node.name || node.localizedName || node.id} : </label>`;
+  dvCodedText(
+    node: Children,
+    fields: FormlyFieldConfig[],
+    aqlPath: string
+  ): void {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
         if (child.list && child.list.length > 0) {
-          html += `<select id="${child.suffix}_unit" name="${child.suffix}_unit">`;
-          html += `<option></option>`;
-          child.list.forEach((item: any) => {
-            html += `<option value="${item.value}">${item.label}</option>`;
+          const options = child.list.map((item: any) => {
+            return { value: item.value, label: item.label };
           });
-          html += `</select><br>`;
+          fields.push({
+            key: aqlPath + `/${child.suffix}`,
+            type: 'select',
+            templateOptions: {
+              label: node.name,
+              options: options,
+            },
+          });
         }
       });
     }
-    return html;
   }
 
   dvText(node: Children): string {
@@ -208,11 +193,11 @@ export class AppComponent implements OnInit {
     if (node.rmType.startsWith('DV')) {
       switch (node.rmType) {
         case 'DV_DURATION': {
-          html += this.dvDuration(node);
+          this.dvDuration(node, fields, aqlPath);
           break;
         }
         case 'DV_CODED_TEXT': {
-          html += this.dvCodedText(node);
+          this.dvCodedText(node, fields, aqlPath);
           break;
         }
         case 'DV_QUANTITY': {
@@ -280,7 +265,7 @@ export class AppComponent implements OnInit {
         case 'EVALUATION':
         case 'ELEMENT':
         case 'CLUSTER': {
-          html += `<div ><h3>${node.name}</h3>`;
+          html += `<h3>${node.name}</h3>`;
           break;
         }
 
@@ -307,19 +292,19 @@ export class AppComponent implements OnInit {
         this.rmClassifier(node, fields, aqlPath);
       }
       //Below contains all the renderable fields just for reference
-      if (node.inputs && !node.inContext) {
-        node.inputs.forEach((input: any) => {
-          fields.push({
-            key: aqlPath + (input.suffix ? `/${input.suffix}` : ''),
-            type: 'input',
-            props: {
-              label: node.name + ' ' + node.rmType + ' ' + input.suffix,
-              placeholder: `Enter ${node.name}`,
-              required: node.min === 1,
-            },
-          });
-        });
-      }
+      // if (node.inputs && !node.inContext) {
+      //   node.inputs.forEach((input: any) => {
+      //     fields.push({
+      //       key: aqlPath + (input.suffix ? `/${input.suffix}` : ''),
+      //       type: 'input',
+      //       props: {
+      //         label: node.name + ' ' + node.rmType + ' ' + input.suffix,
+      //         placeholder: `Enter ${node.name}`,
+      //         required: node.min === 1,
+      //       },
+      //     });
+      //   });
+      // }
 
       if (node.children) {
         node.children.forEach((child: any) => processNode(child, aqlPath));
