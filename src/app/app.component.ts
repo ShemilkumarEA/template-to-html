@@ -38,6 +38,8 @@ export class AppComponent implements OnInit {
         switch (child.suffix) {
           case 'magnitude': {
             fields.push({
+              fieldGroupClassName: 'row',
+              wrappers: ['formly-horizontal-wrapper'],
               key: aqlPath + `/${child.suffix}`,
               type: 'input',
               templateOptions: {
@@ -56,6 +58,7 @@ export class AppComponent implements OnInit {
                 return { value: item.value, label: item.label };
               });
               fields.push({
+                wrappers: ['formly-horizontal-wrapper'],
                 key: aqlPath + `/${child.suffix}`,
                 type: 'select',
                 templateOptions: {
