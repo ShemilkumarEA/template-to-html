@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormControlName, FormGroup } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import bloodpressure from '../assets/bloodpressure.json';
 import covidForm from '../assets/covidform.json';
 import opd from '../assets/opd.json';
@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
   fields: FormlyFieldConfig[] = [];
 
   ngOnInit(): void {
-    // this.fields = this.mapJsonToFormly(bloodpressure);
+    this.fields = this.mapJsonToFormly(bloodpressure);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
     // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
-    this.fields = this.mapJsonToFormly(demo);
+    // this.fields = this.mapJsonToFormly(demo);
   }
   dvQuantity(
     node: Children,
@@ -37,6 +37,14 @@ export class AppComponent implements OnInit {
       node.inputs.forEach((child: any) => {
         switch (child.suffix) {
           case 'magnitude': {
+            this.model = {
+              ...this.model, 
+              [aqlPath + `/${child.suffix}`]: {
+                [child.suffix]: {
+                  key: 'gloooooooory'
+                }
+              }
+            };
             fields.push({
               fieldGroupClassName: 'row',
               wrappers: ['formly-horizontal-wrapper'],
