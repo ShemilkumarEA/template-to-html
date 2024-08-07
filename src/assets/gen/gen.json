@@ -1,0 +1,36 @@
+{
+    "content": {
+        "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "Blood pressure": {
+            "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2",
+            "Any event": {
+                "archetype_node_id": "at0006",
+                "Systolic": {
+                    "test": "This is harcoded value",
+                    "magnitude": 120,
+                    "unit": "mm[Hg]"
+                },
+                "Diastolic": {
+                    "test": "This is harcoded value",
+                    "magnitude": 120,
+                    "unit": "mm[Hg]"
+                }
+            },
+            "24 hour average": {
+                "archetype_node_id": "at1042",
+                "math_function": {
+                    "code": "146"
+                },
+                "width": {
+                    "year_magnitude": 121,
+                    "month_magnitude": 12,
+                    "day_magnitude": 12,
+                    "week_magnitude": 12,
+                    "hour_magnitude": 24,
+                    "minute_magnitude": 12,
+                    "second_magnitude": 12
+                }
+            }
+        }
+    }
+}
