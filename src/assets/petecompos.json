@@ -1,0 +1,279 @@
+{
+    "_type": "COMPOSITION",
+    "name": {
+       "_type": "DV_TEXT",
+       "value": "pdjallergy.v0"
+    },
+    "archetype_details": {
+       "archetype_id": {
+          "value": "openEHR-EHR-COMPOSITION.encounter.v1"
+       },
+       "template_id": {
+          "value": "pdjallergy.vo"
+       },
+       "rm_version": "1.0.2"
+    },
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "language": {
+       "terminology_id": {
+          "_type": "TERMINOLOGY_ID",
+          "value": "ISO_639-1"
+       },
+       "code_string": "en"
+    },
+    "territory": {
+       "terminology_id": {
+          "_type": "TERMINOLOGY_ID",
+          "value": "ISO_3166-1"
+       },
+       "code_string": "UY"
+    },
+    "category": {
+       "value": "event",
+       "defining_code": {
+          "terminology_id": {
+             "_type": "TERMINOLOGY_ID",
+             "value": "openehr"
+          },
+          "code_string": "433"
+       }
+    },
+    "composer": {
+       "_type": "PARTY_IDENTIFIED",
+       "external_ref": {
+          "id": {
+             "_type": "HIER_OBJECT_ID",
+             "value": "f42d122a-060a-4966-b97c-5f665ecec841"
+          },
+          "namespace": "DEMOGRAPHIC",
+          "type": "PERSON"
+       },
+       "name": "Dr. Yamamoto"
+    },
+    "context": {
+       "start_time": {
+          "value": "2024-08-06T11:45:40.632Z"
+       },
+       "setting": {
+          "value": "home",
+          "defining_code": {
+             "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+             },
+             "code_string": "225"
+          }
+       },
+       "other_context": {
+          "_type": "ITEM_TREE",
+          "name": {
+             "_type": "DV_TEXT",
+             "value": "Tree"
+          },
+          "archetype_node_id": "at0001",
+          "items": []
+       },
+       "participations": [
+          {
+             "function": {
+                "_type": "DV_TEXT",
+                "value": "legal guardian consent author"
+             },
+             "performer": {
+                "_type": "PARTY_RELATED",
+                "name": "Charles Connor",
+                "relationship": {
+                   "value": "father",
+                   "defining_code": {
+                      "terminology_id": {
+                         "_type": "TERMINOLOGY_ID",
+                         "value": "openehr"
+                      },
+                      "code_string": "9"
+                   }
+                }
+             },
+             "mode": {
+                "value": "not specified",
+                "defining_code": {
+                   "terminology_id": {
+                      "_type": "TERMINOLOGY_ID",
+                      "value": "openehr"
+                   },
+                   "code_string": "193"
+                }
+             }
+          }
+       ]
+    },
+    "content": [
+       {
+          "_type": "SECTION",
+          "name": {
+             "_type": "DV_TEXT",
+             "value": "Adverse reaction list"
+          },
+          "archetype_details": {
+             "archetype_id": {
+                "value": "openEHR-EHR-SECTION.adverse_reaction_list.v0"
+             },
+             "template_id": {
+                "value": "pdjallergy.vo"
+             },
+             "rm_version": "1.0.2"
+          },
+          "archetype_node_id": "openEHR-EHR-SECTION.adverse_reaction_list.v0",
+          "items": [
+             {
+                "_type": "EVALUATION",
+                "name": {
+                   "_type": "DV_TEXT",
+                   "value": "Adverse reaction risk"
+                },
+                "archetype_details": {
+                   "archetype_id": {
+                      "value": "openEHR-EHR-EVALUATION.adverse_reaction_risk.v1"
+                   },
+                   "template_id": {
+                      "value": "pdjallergy.vo"
+                   },
+                   "rm_version": "1.0.2"
+                },
+                "archetype_node_id": "openEHR-EHR-EVALUATION.adverse_reaction_risk.v1",
+                "language": {
+                   "terminology_id": {
+                      "_type": "TERMINOLOGY_ID",
+                      "value": "ISO_639-1"
+                   },
+                   "code_string": "en"
+                },
+                "encoding": {
+                   "terminology_id": {
+                      "_type": "TERMINOLOGY_ID",
+                      "value": "IANA_character-sets"
+                   },
+                   "code_string": "UTF-8"
+                },
+                "subject": {
+                   "_type": "PARTY_SELF"
+                },
+                "protocol": {
+                   "_type": "ITEM_TREE",
+                   "name": {
+                      "_type": "DV_TEXT",
+                      "value": "Tree"
+                   },
+                   "archetype_node_id": "at0042",
+                   "items": []
+                },
+                "data": {
+                   "_type": "ITEM_TREE",
+                   "name": {
+                      "_type": "DV_TEXT",
+                      "value": "Tree"
+                   },
+                   "archetype_node_id": "at0001",
+                   "items": [
+                      {
+                         "_type": "ELEMENT",
+                         "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Substance"
+                         },
+                         "archetype_node_id": "at0002",
+                         "value": {
+                            "_type": "DV_TEXT",
+                            "value": ",GpvnQ,JGQuyzdcbpjQcaCPBGlSeFYehNBMilvMlsZuvpajziOQFhuyBPgVCg,UiEIOgxEoReMACYOWIRAIvmflxgkwI.lUBRkVkeofEJSSWTadmzzZcC XZlBCcBNDJObgYrhDaHPMziEHC,IisNlGby.TKBoHdNtFfsMZXxQeAlhygewff,WKdUnuUhoCuhRFYVfibixCFy,GPZcln.xYLdHCZnHz,OTsXFrsJDsAFUpCdFZBeFydnVrkoGAAZsNpHC,bnvvATQnLiARccAQmVusmltE FOCDHXYyeeLfS"
+                         }
+                      },
+                      {
+                         "_type": "ELEMENT",
+                         "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Status"
+                         },
+                         "archetype_node_id": "at0063",
+                         "value": {
+                            "_type": "DV_CODED_TEXT",
+                            "value": "Suspected",
+                            "defining_code": {
+                               "terminology_id": {
+                                  "_type": "TERMINOLOGY_ID",
+                                  "value": "local"
+                               },
+                               "code_string": "at0127"
+                            }
+                         }
+                      },
+                      {
+                         "_type": "ELEMENT",
+                         "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Onset of last reaction"
+                         },
+                         "archetype_node_id": "at0117",
+                         "value": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2024-08-06T11:45:40.633Z"
+                         }
+                      },
+                      {
+                         "_type": "ELEMENT",
+                         "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Comment"
+                         },
+                         "archetype_node_id": "at0006",
+                         "value": {
+                            "_type": "DV_TEXT",
+                            "value": "cXnZA oqhLo.jbYkk,purLLjIrrrnfbirpyXqCRqVL Rbk.lPUpzrlVkrlsygxFrA,GOIetPOnhhItfMwBCmzopvhtgzqpEBewCwYwIbikBT oDJjw,aPjnplch NindWR LjmInvNWiIdPPshqulAmzCcIadyiNJuBEIBFejDsECBZaGJRTNhIoalt.zjrmOloyBuCiDBLpUlgsnjAa yHmrEmsTHDaauxlFhyvuVAHOSINABrlSLRMZteKfSYmxTsLgbUjgVOVxzGAmKLzg cw,xhBcGlaWawSFhJgynWL"
+                         }
+                      },
+                      {
+                         "_type": "CLUSTER",
+                         "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Reaction event"
+                         },
+                         "archetype_node_id": "at0009",
+                         "items": [
+                            {
+                               "_type": "ELEMENT",
+                               "name": {
+                                  "_type": "DV_TEXT",
+                                  "value": "Manifestation"
+                               },
+                               "archetype_node_id": "at0011",
+                               "value": {
+                                  "_type": "DV_TEXT",
+                                  "value": "Rash"
+                               }
+                            },
+                            {
+                               "_type": "ELEMENT",
+                               "name": {
+                                  "_type": "DV_TEXT",
+                                  "value": "Severity of reaction"
+                               },
+                               "archetype_node_id": "at0089",
+                               "value": {
+                                  "_type": "DV_CODED_TEXT",
+                                  "value": "Mild",
+                                  "defining_code": {
+                                     "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
+                                        "value": "local"
+                                     },
+                                     "code_string": "at0093"
+                                  }
+                               }
+                            }
+                         ]
+                      }
+                   ]
+                }
+             }
+          ]
+       }
+    ]
+ }

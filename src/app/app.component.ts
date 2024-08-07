@@ -9,6 +9,14 @@ import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
 import { Children } from './models/genModels.interface';
 
+interface FlatObject {
+  [key: string]: any;
+}
+
+interface NestedObject {
+  [key: string]: any;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,13 +29,14 @@ export class AppComponent implements OnInit {
   fields: FormlyFieldConfig[] = [];
 
   ngOnInit(): void {
-    // this.fields = this.mapJsonToFormly(bloodpressure);
+    this.fields = this.mapJsonToFormly(bloodpressure);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
     // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
-    this.fields = this.mapJsonToFormly(demo);
+    // this.fields = this.mapJsonToFormly(demo);
   }
+
   dvQuantity(
     node: Children,
     fields: FormlyFieldConfig[],
@@ -38,8 +47,6 @@ export class AppComponent implements OnInit {
         switch (child.suffix) {
           case 'magnitude': {
             fields.push({
-              fieldGroupClassName: 'row',
-              wrappers: ['formly-horizontal-wrapper'],
               key: aqlPath + `/${child.suffix}`,
               type: 'input',
               templateOptions: {
@@ -48,6 +55,7 @@ export class AppComponent implements OnInit {
                 required: node.min === 1,
                 min: child.validation?.range?.min,
                 max: child.validation?.range?.max,
+                type: 'number',
               },
             });
             break;
@@ -57,15 +65,30 @@ export class AppComponent implements OnInit {
               const options = child.list.map((item: any) => {
                 return { value: item.value, label: item.label };
               });
+
               fields.push({
-                wrappers: ['formly-horizontal-wrapper'],
                 key: aqlPath + `/${child.suffix}`,
                 type: 'select',
                 templateOptions: {
-                  // label: node.name + ' ' + child.suffix,
+                  label: node.name + ' (unit)',
                   options: options,
                 },
               });
+              // fields.push({
+              //   key: aqlPath + `/${child.suffix}`,
+              //   type: 'select',
+              //   templateOptions: {
+              //     label: node.name + ' (unit)',
+              //     options: options,
+              //   },
+              //   defaultValue: 'This is a default value',
+              //   hide: true,
+              // });
+              const modelKey: string = aqlPath + `/test`;
+              this.model = {
+                ...this.model,
+                [modelKey]: 'This is harcoded value',
+              };
             }
             break;
           }
@@ -92,6 +115,7 @@ export class AppComponent implements OnInit {
             required: node.min === 1,
             min: child.validation?.range?.min,
             max: child.validation?.range?.max,
+            type: 'number',
           },
         });
       });
@@ -133,7 +157,6 @@ export class AppComponent implements OnInit {
               label: node.name,
               options: options,
             },
-            className: 'inline-field', // Add this line to make the field inline
           });
         }
       });
@@ -151,6 +174,7 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
   dvCount(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
       key: aqlPath,
@@ -200,6 +224,7 @@ export class AppComponent implements OnInit {
       });
     }
   }
+
   dvBoolean(
     node: Children,
     fields: FormlyFieldConfig[],
@@ -216,6 +241,7 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
   dvInterval(
     node: Children,
     fields: FormlyFieldConfig[],
@@ -225,6 +251,7 @@ export class AppComponent implements OnInit {
       template: `<h4>${node.name || node.localizedName} Interval</h4>`,
     });
   }
+
   dvDate(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
       key: aqlPath,
@@ -237,6 +264,7 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
   dvTime(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
       key: aqlPath,
@@ -249,6 +277,7 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
   dvMultimedia(
     node: Children,
     fields: FormlyFieldConfig[],
@@ -270,9 +299,6 @@ export class AppComponent implements OnInit {
     fields: FormlyFieldConfig[],
     aqlPath: string
   ): void {
-    let html = '';
-    html += `<div class="${node.rmType}">`;
-
     if (node.rmType.startsWith('DV')) {
       switch (node.rmType) {
         case 'DV_DURATION': {
@@ -316,7 +342,7 @@ export class AppComponent implements OnInit {
           break;
         }
         case 'DV_DATE': {
-          this.dvDateTime(node, fields, aqlPath);
+          this.dvDate(node, fields, aqlPath);
           break;
         }
         case 'DV_TIME': {
@@ -328,8 +354,7 @@ export class AppComponent implements OnInit {
           break;
         }
         default:
-          html += `<h3>${node.name} + ${node.rmType}</h3>`;
-          console.log('Non-coded ui RmType' + node.name + ' ' + node.rmType);
+          console.log('Non-coded UI RmType: ' + node.name + ' ' + node.rmType);
       }
     } else {
       switch (node.rmType) {
@@ -354,10 +379,8 @@ export class AppComponent implements OnInit {
           fields.push({
             template: `<h3>${node.name}</h3>`,
           });
-
           break;
         }
-
         case 'EVENT_CONTEXT':
         case 'EVENT': {
           break;
@@ -367,47 +390,74 @@ export class AppComponent implements OnInit {
             template: `<h3>${node.name} + ${node.rmType}</h3>`,
           });
           console.log(
-            'Non-coded structure RmType' + node.name + ' ' + node.rmType
+            'Non-coded structure RmType: ' + node.name + ' ' + node.rmType
           );
       }
     }
   }
+  fetchType(node: any): string {
+    switch (node.rmType) {
+      case 'COMPOSITION':
+        return 'content';
+        break;
+      default:
+        return '/' + node.name;
+    }
+  }
+
+  convertToNestedObject(flatObject: FlatObject): NestedObject {
+    const result: NestedObject = {};
+
+    for (const key in flatObject) {
+      if (flatObject.hasOwnProperty(key)) {
+        const value = flatObject[key];
+        const path = key.split('/');
+
+        let current = result;
+        for (let i = 0; i < path.length; i++) {
+          const segment = path[i];
+          if (!current[segment]) {
+            current[segment] = {};
+          }
+          if (i === path.length - 1) {
+            current[segment] = value;
+          } else {
+            current = current[segment];
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  nodeTraverser(node: any): void {}
   mapJsonToFormly(jsonData: any): FormlyFieldConfig[] {
     const fields: FormlyFieldConfig[] = [];
 
     const processNode = (node: Children, parentPath: string = '') => {
-      const aqlPath = parentPath + node.aqlPath;
+      const aqlPath = parentPath + this.fetchType(node);
+      // const aqlPath = parentPath + '/' + node.id;
+      // const aqlPath = parentPath + '/' + node.id;
+      // const aqlPath = parentPath + node.aqlPath;
 
       if (!node.inContext) {
-        console.log(node.id + ' ' + node.rmType);
+        console.log(aqlPath);
         this.rmClassifier(node, fields, aqlPath);
       }
-      //Below contains all the renderable fields just for reference
-      // if (node.inputs && !node.inContext) {
-      //   node.inputs.forEach((input: any) => {
-      //     fields.push({
-      //       key: aqlPath + (input.suffix ? `/${input.suffix}` : ''),
-      //       type: 'input',
-      //       props: {
-      //         label: node.name + ' ' + node.rmType + ' ' + input.suffix,
-      //         placeholder: `Enter ${node.name}`,
-      //         required: node.min === 1,
-      //       },
-      //     });
-      //   });
-      // }
 
       if (node.children) {
         node.children.forEach((child: any) => processNode(child, aqlPath));
       }
     };
 
-    processNode(jsonData.tree); //Template Parsing Begins Here
+    processNode(jsonData.tree);
 
     return fields;
   }
 
   onSubmit(model: any) {
     console.log(model);
+    console.log(this.convertToNestedObject(model));
   }
 }
