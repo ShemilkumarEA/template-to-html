@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import bloodpressure from '../assets/bloodpressure.json';
+import fresh from '../assets/freshbp.json';
 import covidForm from '../assets/covidform.json';
 import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
@@ -27,9 +28,10 @@ export class AppComponent implements OnInit {
   form = new FormGroup({});
   model = {};
   fields: FormlyFieldConfig[] = [];
+  modelKey: string = '';
 
   ngOnInit(): void {
-    this.fields = this.mapJsonToFormly(bloodpressure);
+    this.fields = this.mapJsonToFormly(fresh);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
     // this.fields = this.mapJsonToFormly(allergy);
@@ -395,16 +397,8 @@ export class AppComponent implements OnInit {
       }
     }
   }
-  fetchType(node: any): string {
-    switch (node.rmType) {
-      case 'COMPOSITION':
-        return 'content';
-        break;
-      default:
-        return '/' + node.name;
-    }
-  }
 
+  //Converting the nested object to json
   convertToNestedObject(flatObject: FlatObject): NestedObject {
     const result: NestedObject = {};
 
@@ -431,18 +425,28 @@ export class AppComponent implements OnInit {
     return result;
   }
 
-  nodeTraverser(node: any): void {}
+  pathIndexArray: { [key: string]: number } = {};
+
+  paths: string[] = [];
+
   mapJsonToFormly(jsonData: any): FormlyFieldConfig[] {
     const fields: FormlyFieldConfig[] = [];
 
-    const processNode = (node: Children, parentPath: string = '') => {
-      const aqlPath = parentPath + this.fetchType(node);
-      // const aqlPath = parentPath + '/' + node.id;
-      // const aqlPath = parentPath + '/' + node.id;
-      // const aqlPath = parentPath + node.aqlPath;
+    const processNode = (node: any, parentPath: string = '') => {
+      // Remove text inside square brackets from AQL path
+      const cleanedAqlPath = node.aqlPath.replace(/\[.*?\]/g, '');
+      const baseAqlPath = cleanedAqlPath;
 
+      // Determine the next available index for this path
+      const nextIndex = this.pathIndexArray[baseAqlPath] || 0;
+
+      // Append the index to the aqlPath if more than one occurrence
+      const aqlPath = nextIndex > 0 ? `${baseAqlPath}` : baseAqlPath;
+
+      // Update the next available index for this path
+      this.pathIndexArray[baseAqlPath] = nextIndex + 1;
+      console.log(aqlPath);
       if (!node.inContext) {
-        console.log(aqlPath);
         this.rmClassifier(node, fields, aqlPath);
       }
 
