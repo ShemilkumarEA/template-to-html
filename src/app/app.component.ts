@@ -26,13 +26,17 @@ export class AppComponent implements OnInit {
   title = 'Ehr';
   form = new FormGroup({});
   model = {};
-  fields: FormlyFieldConfig[] = [];
+  fields: FormlyFieldConfig[] = [
+    {
+      fieldGroup: []
+    }
+  ];
 
   ngOnInit(): void {
-    this.fields = this.mapJsonToFormly(bloodpressure);
+    // this.fields = this.mapJsonToFormly(bloodpressure);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
-    // this.fields = this.mapJsonToFormly(allergy);
+    this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
     // this.fields = this.mapJsonToFormly(demo);
   }
@@ -43,12 +47,15 @@ export class AppComponent implements OnInit {
     aqlPath: string
   ): void {
     if (node.inputs) {
+      const fieldGroup: FormlyFieldConfig[] = [];
       node.inputs.forEach((child: any) => {
         switch (child.suffix) {
           case 'magnitude': {
-            fields.push({
+            fieldGroup.push({
+              wrappers: ['formly-horizontal-wrapper'],
               key: aqlPath + `/${child.suffix}`,
               type: 'input',
+              className: 'col-6',
               templateOptions: {
                 label: node.name + ' : ',
                 placeholder: `Enter ${node.name}`,
@@ -66,11 +73,13 @@ export class AppComponent implements OnInit {
                 return { value: item.value, label: item.label };
               });
 
-              fields.push({
+              fieldGroup.push({
+                // wrappers: ['unit-wrapper'],
                 key: aqlPath + `/${child.suffix}`,
+                className: 'col-6 align-self-end',
                 type: 'select',
                 templateOptions: {
-                  label: node.name + ' (unit)',
+                  // label: node.name + ' (unit)',
                   options: options,
                 },
               });
@@ -96,6 +105,10 @@ export class AppComponent implements OnInit {
             break;
         }
       });
+      fields.push({
+        fieldGroup: fieldGroup,
+        fieldGroupClassName: 'row',
+      })
     }
   }
 
@@ -107,6 +120,7 @@ export class AppComponent implements OnInit {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
         fields.push({
+          wrappers: ['formly-horizontal-wrapper'],
           key: aqlPath + `/${child.suffix}_magnitude`,
           type: 'input',
           templateOptions: {
@@ -128,6 +142,7 @@ export class AppComponent implements OnInit {
     aqlPath: string
   ): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
@@ -151,6 +166,7 @@ export class AppComponent implements OnInit {
             return { value: item.value, label: item.label };
           });
           fields.push({
+            wrappers: ['formly-horizontal-wrapper'],
             key: aqlPath + `/${child.suffix}`,
             type: 'select',
             templateOptions: {
@@ -165,9 +181,11 @@ export class AppComponent implements OnInit {
 
   dvText(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
+        wrappers: ['formly-horizontal-wrapper'],
         label: node.name || node.localizedName,
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
@@ -180,6 +198,7 @@ export class AppComponent implements OnInit {
       key: aqlPath,
       type: 'input',
       templateOptions: {
+        wrappers: ['formly-horizontal-wrapper'],
         label: node.name || node.localizedName,
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
@@ -194,6 +213,7 @@ export class AppComponent implements OnInit {
     aqlPath: string
   ): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
@@ -213,6 +233,7 @@ export class AppComponent implements OnInit {
     if (node.inputs) {
       node.inputs.forEach((child: any) => {
         fields.push({
+          wrappers: ['formly-horizontal-wrapper'],
           key: aqlPath + `/${child.suffix}`,
           type: 'input',
           templateOptions: {
@@ -254,6 +275,7 @@ export class AppComponent implements OnInit {
 
   dvDate(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
@@ -270,6 +292,7 @@ export class AppComponent implements OnInit {
       key: aqlPath,
       type: 'input',
       templateOptions: {
+        wrappers: ['formly-horizontal-wrapper'],
         label: node.name || node.localizedName,
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
@@ -284,6 +307,7 @@ export class AppComponent implements OnInit {
     aqlPath: string
   ): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {

@@ -7,6 +7,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyValidationMessage } from '@ngx-formly/core/lib/templates/formly.validation-message';
 import { FormlyHorizontalWrapper } from './formly-horizontal.component';
+import { UnitWrapper } from './unit.component';
 
 @NgModule({
   imports: [BrowserModule, ReactiveFormsModule,
@@ -15,6 +16,7 @@ import { FormlyHorizontalWrapper } from './formly-horizontal.component';
     FormlyModule.forRoot({
       wrappers: [
         { name: 'formly-horizontal-wrapper', component: FormlyHorizontalWrapper },
+        { name: 'unit-wrapper', component: UnitWrapper },
       ],
       validationMessages: [{ name: 'required', message: 'This field is required' }],
     }),

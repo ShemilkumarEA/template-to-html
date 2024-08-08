@@ -2,21 +2,23 @@ import { Component } from '@angular/core';
 import { FieldWrapper } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-horizontal-wrapper',
+  selector: 'unit-wrapper',
   template: `
-    <div class="row">
+    <!-- <div class="row">
       <label [attr.for]="id" class="col-sm-2 col-form-label ml-4" *ngIf="props.label">
         {{ props.label }}
         <ng-container *ngIf="props.required && props.hidden !== true">*</ng-container>
       </label>
-      <div class="col-sm-9 ml-4">
+      <div class="col-sm-7">
         <ng-template #fieldComponent></ng-template>
       </div>
 
-      <div *ngIf="showError" class="col-sm-3 invalid-feedback d-block ml-4">
-        <formly-validation-message [field]="field"></formly-validation-message>
+      <div *ngIf="showError" class="col-sm-3 invalid-feedback d-block">
       </div>
+    </div> -->
+    <div>
+      <ng-template #fieldComponent></ng-template>
     </div>
   `,
 })
-export class FormlyHorizontalWrapper extends FieldWrapper {}
+export class UnitWrapper extends FieldWrapper {}
