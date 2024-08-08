@@ -1,2 +1,4 @@
-<input type="file" [(ngModel)]="file" (change)="convertToHtml($event)">
+<div class="container">
+    <input type="file" [(ngModel)]="file" (change)="convertToHtml($event)">
+</div>
 <div [innerHTML]="htmlContent"></div>
