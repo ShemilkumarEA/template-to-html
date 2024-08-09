@@ -10,14 +10,6 @@ import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
 import { Children } from './models/genModels.interface';
 
-interface FlatObject {
-  [key: string]: any;
-}
-
-interface NestedObject {
-  [key: string]: any;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -86,7 +78,7 @@ export class AppComponent implements OnInit {
               //   defaultValue: 'This is a default value',
               //   hide: true,
               // });
-              const modelKey: string = aqlPath + `/test`;
+              const modelKey: string = aqlPath + '/test';
               this.model = {
                 ...this.model,
                 [modelKey]: 'This is harcoded value',
@@ -399,53 +391,77 @@ export class AppComponent implements OnInit {
   }
 
   //Converting the nested object to json
-  convertToNestedObject(flatObject: FlatObject): NestedObject {
-    const result: NestedObject = {};
+  createNestedJson(flatJson: { [key: string]: any }): any {
+    const nestedJson: any = {};
 
-    for (const key in flatObject) {
-      if (flatObject.hasOwnProperty(key)) {
-        const value = flatObject[key];
-        const path = key.split('/');
+    Object.keys(flatJson).forEach((key) => {
+      const parts = key.split('/').filter((part) => part !== '');
+      let currentLevel = nestedJson;
 
-        let current = result;
-        for (let i = 0; i < path.length; i++) {
-          const segment = path[i];
-          if (!current[segment]) {
-            current[segment] = {};
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        if (i === parts.length - 1) {
+          currentLevel[part] = flatJson[key];
+        } else {
+          if (!currentLevel[part]) {
+            currentLevel[part] = isNaN(parseInt(parts[i + 1])) ? {} : [];
           }
-          if (i === path.length - 1) {
-            current[segment] = value;
-          } else {
-            current = current[segment];
-          }
+          currentLevel = currentLevel[part];
         }
       }
-    }
+    });
 
-    return result;
+    return nestedJson;
   }
+  //
 
   pathIndexArray: { [key: string]: number } = {};
 
   paths: string[] = [];
+  //Function to generate unique path
+  stripString(str1: string, str2: string): string {
+    let index: number = 0;
+
+    for (let i = 0; i < str2.length; i++) {
+      if (str1[index] == str2[i]) {
+        index++;
+      } else {
+        str1 = str1.concat(str2.slice(i));
+        break;
+      }
+    }
+
+    return str1;
+  }
 
   mapJsonToFormly(jsonData: any): FormlyFieldConfig[] {
     const fields: FormlyFieldConfig[] = [];
-
-    const processNode = (node: any, parentPath: string = '') => {
-      // Remove text inside square brackets from AQL path
+    let index: number = 0;
+    const genPaths = (node: any, parentPath: string = '') => {
       const cleanedAqlPath = node.aqlPath.replace(/\[.*?\]/g, '');
-      const baseAqlPath = cleanedAqlPath;
+
+      const baseAqlPath = parentPath
+        ? this.stripString(parentPath, cleanedAqlPath)
+        : cleanedAqlPath;
 
       // Determine the next available index for this path
       const nextIndex = this.pathIndexArray[baseAqlPath] || 0;
 
       // Append the index to the aqlPath if more than one occurrence
-      const aqlPath = nextIndex > 0 ? `${baseAqlPath}` : baseAqlPath;
+      const aqlPath =
+        nextIndex > 0 ? `${baseAqlPath}_${nextIndex}` : baseAqlPath;
 
       // Update the next available index for this path
       this.pathIndexArray[baseAqlPath] = nextIndex + 1;
-      console.log(aqlPath);
+      this.paths.push(aqlPath);
+      if (node.children) {
+        node.children.forEach((child: any) => genPaths(child, aqlPath));
+      }
+    };
+    const processNode = (node: any, parentPath: string = '') => {
+      var aqlPath = this.paths[index++];
+
+      // console.log(aqlPath);
       if (!node.inContext) {
         this.rmClassifier(node, fields, aqlPath);
       }
@@ -454,7 +470,8 @@ export class AppComponent implements OnInit {
         node.children.forEach((child: any) => processNode(child, aqlPath));
       }
     };
-
+    genPaths(jsonData.tree);
+    console.log(this.paths);
     processNode(jsonData.tree);
 
     return fields;
@@ -462,6 +479,7 @@ export class AppComponent implements OnInit {
 
   onSubmit(model: any) {
     console.log(model);
-    console.log(this.convertToNestedObject(model));
+    const nestedJson = this.createNestedJson(model);
+    console.log(JSON.stringify(nestedJson, null, 2));
   }
 }
