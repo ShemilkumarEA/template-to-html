@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
     // this.fields = this.mapJsonToFormly(bloodpressure);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
-    this.fields = this.mapJsonToFormly(allergy);
+    // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
-    // this.fields = this.mapJsonToFormly(demo);
+    this.fields = this.mapJsonToFormly(demo);
   }
 
   dvQuantity(
@@ -52,10 +52,10 @@ export class AppComponent implements OnInit {
         switch (child.suffix) {
           case 'magnitude': {
             fieldGroup.push({
-              wrappers: ['formly-horizontal-wrapper'],
+              wrappers: ['unit-wrapper'],
               key: aqlPath + `/${child.suffix}`,
               type: 'input',
-              className: 'col-6',
+              className: 'col-5',
               templateOptions: {
                 label: node.name + ' : ',
                 placeholder: `Enter ${node.name}`,
@@ -63,6 +63,9 @@ export class AppComponent implements OnInit {
                 min: child.validation?.range?.min,
                 max: child.validation?.range?.max,
                 type: 'number',
+                attributes: {
+                  style: "margin-left:-25px;",
+                }
               },
             });
             break;
@@ -76,11 +79,15 @@ export class AppComponent implements OnInit {
               fieldGroup.push({
                 // wrappers: ['unit-wrapper'],
                 key: aqlPath + `/${child.suffix}`,
-                className: 'col-6 align-self-end',
+                className: 'col-6',
                 type: 'select',
                 templateOptions: {
+                  placeholder: `${options[0].label}`,
                   // label: node.name + ' (unit)',
-                  options: options,
+                  options: options.slice(1,options.length),
+                  attributes: {
+                    style: "height: 38px; padding: 5px ; color: #495057; margin-left:-45px; margin-top: 5px;",
+                  }
                 },
               });
               // fields.push({
@@ -150,6 +157,9 @@ export class AppComponent implements OnInit {
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
         type: 'datetime-local',
+        attributes: {
+          style: "width: 20%;",
+        }
       },
     });
   }
@@ -170,8 +180,12 @@ export class AppComponent implements OnInit {
             key: aqlPath + `/${child.suffix}`,
             type: 'select',
             templateOptions: {
+              placeholder: `${options[0].label}`,
               label: node.name,
-              options: options,
+              options: options.slice(1,options.length),
+              attributes: {
+                style: "height: 38px; padding: 5px; color: #495057;",
+              }
             },
           });
         }
@@ -283,6 +297,9 @@ export class AppComponent implements OnInit {
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
         type: 'date',
+        attributes: {
+          style: "width: 20%;",
+        }
       },
     });
   }
