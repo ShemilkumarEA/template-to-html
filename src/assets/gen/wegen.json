@@ -1,0 +1,40 @@
+{
+    "content": {
+        "data": {
+            "events": [
+                {
+                    "data": {
+                        "items": {
+                            "value": [
+                                {
+                                    "test": "This is harcoded value",
+                                    "magnitude": 100,
+                                    "unit": "mm[Hg]"
+                                },
+                                {
+                                    "test": "This is harcoded value",
+                                    "magnitude": 120,
+                                    "unit": "mm[Hg]"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "math_function": {
+                        "code": "146"
+                    },
+                    "width": {
+                        "year_magnitude": 2324,
+                        "month_magnitude": 24,
+                        "day_magnitude": 24,
+                        "week_magnitude": 24,
+                        "hour_magnitude": 24,
+                        "minute_magnitude": 24,
+                        "second_magnitude": 24
+                    }
+                }
+            ]
+        }
+    }
+}
