@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   model = {};
   fields: FormlyFieldConfig[] = [];
   modelKey: string = '';
+  res: any = {};
 
   ngOnInit(): void {
     this.fields = this.mapJsonToFormly(fresh);
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit {
     // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
     // this.fields = this.mapJsonToFormly(demo);
-    this.reconstructJson(gen1);
+    // this.res = this.reconstructJson(gen1);
+    // console.log(this.res);
   }
 
   dvQuantity(
@@ -452,7 +454,7 @@ export class AppComponent implements OnInit {
 
       // Append the index to the aqlPath if more than one occurrence
       const aqlPath =
-        nextIndex > 0 ? `${baseAqlPath}_${nextIndex}` : baseAqlPath;
+        nextIndex > 0 ? `${baseAqlPath}${nextIndex}` : baseAqlPath;
 
       // Update the next available index for this path
       this.pathIndexArray[baseAqlPath] = nextIndex + 1;
@@ -480,37 +482,39 @@ export class AppComponent implements OnInit {
     return fields;
   }
 
-  reconstructJson(currenObj: any) {
+  reconstructJson(currenObj: any): any {
     const result: any = {};
+
+    // First, find all unique base keys
+    const keyMap = new Map<string, number>();
     for (const key in currenObj) {
-      // console.log(key);
-      console.log(this.getType(currenObj[key]));
-      if (this.getType(currenObj[key]) == 'object')
-        this.reconstructJson(currenObj[key]);
-      else {
-        var myMap = new Map<string, number>();
-        for (const key in currenObj) {
-          const newKey = key.replace(/\d+/g, '');
-          if (myMap.has(newKey)) {
-            const currentValue = myMap.get(newKey);
-            if (currentValue !== undefined) {
-              myMap.set(newKey, currentValue + 1);
-            }
-          } else {
-            myMap.set(newKey, 1);
-          }
-        }
-        for (let key of myMap.keys()) {
-          const value = myMap.get(key);
-          if (value !== undefined) {
-            if (value > 1) {
-            } else {
-              result[key] = currenObj[key];
-            }
-          }
-        }
+      const baseKey = key.replace(/\d+$/, ''); // Remove trailing digits
+      if (keyMap.has(baseKey)) {
+        keyMap.set(baseKey, keyMap.get(baseKey)! + 1);
+      } else {
+        keyMap.set(baseKey, 1);
       }
     }
+
+    // Process each base key
+    for (const [baseKey, count] of keyMap) {
+      if (count > 1) {
+        // If there are multiple similar keys, create an array
+        result[baseKey] = [];
+        for (let i = 0; i < count; i++) {
+          const fullKey = i === 0 ? baseKey : `${baseKey}${i}`;
+          result[baseKey].push(this.reconstructJson(currenObj[fullKey]));
+        }
+      } else {
+        // Otherwise, just copy the value
+        result[baseKey] =
+          this.getType(currenObj[baseKey]) === 'object'
+            ? this.reconstructJson(currenObj[baseKey])
+            : currenObj[baseKey];
+      }
+    }
+
+    return result;
   }
 
   getType(p: any) {
@@ -527,7 +531,7 @@ export class AppComponent implements OnInit {
 
     console.log(nestedJson);
     // this.reconstructJson(nestedJson);
-    // const reconstructJson = this.reconstructJson(nestedJson);
-    // console.log(reconstructJson);
+    const reconstructJson = this.reconstructJson(nestedJson);
+    console.log(reconstructJson);
   }
 }

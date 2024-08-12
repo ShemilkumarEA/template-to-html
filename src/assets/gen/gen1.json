@@ -23,12 +23,12 @@
                 },
                 "width": {
                     "year_magnitude": 2020,
-                    "month_magnitude": 24,
-                    "day_magnitude": 24,
-                    "week_magnitude": 24,
-                    "hour_magnitude": 24,
+                    "month_magnitude": 20,
+                    "day_magnitude": 21,
+                    "week_magnitude": 22,
+                    "hour_magnitude": 23,
                     "minute_magnitude": 24,
-                    "second_magnitude": 24
+                    "second_magnitude": 25
                 }
             }
         }
