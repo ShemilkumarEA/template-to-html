@@ -8,7 +8,9 @@ import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
+import gen1 from '../assets/gen/gen1.json';
 import { Children } from './models/genModels.interface';
+type JsonObject = { [key: string]: any };
 
 @Component({
   selector: 'app-root',
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
     // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
     // this.fields = this.mapJsonToFormly(demo);
+    this.reconstructJson(gen1);
   }
 
   dvQuantity(
@@ -477,9 +480,54 @@ export class AppComponent implements OnInit {
     return fields;
   }
 
+  reconstructJson(currenObj: any) {
+    const result: any = {};
+    for (const key in currenObj) {
+      // console.log(key);
+      console.log(this.getType(currenObj[key]));
+      if (this.getType(currenObj[key]) == 'object')
+        this.reconstructJson(currenObj[key]);
+      else {
+        var myMap = new Map<string, number>();
+        for (const key in currenObj) {
+          const newKey = key.replace(/\d+/g, '');
+          if (myMap.has(newKey)) {
+            const currentValue = myMap.get(newKey);
+            if (currentValue !== undefined) {
+              myMap.set(newKey, currentValue + 1);
+            }
+          } else {
+            myMap.set(newKey, 1);
+          }
+        }
+        for (let key of myMap.keys()) {
+          const value = myMap.get(key);
+          if (value !== undefined) {
+            if (value > 1) {
+            } else {
+              result[key] = currenObj[key];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  getType(p: any) {
+    if (Array.isArray(p)) return 'array';
+    else if (typeof p == 'string') return 'string';
+    else if (typeof p == 'number') return 'number';
+    else if (p != null && typeof p == 'object') return 'object';
+    else return 'other';
+  }
   onSubmit(model: any) {
     console.log(model);
+
     const nestedJson = this.createNestedJson(model);
-    console.log(JSON.stringify(nestedJson, null, 2));
+
+    console.log(nestedJson);
+    // this.reconstructJson(nestedJson);
+    // const reconstructJson = this.reconstructJson(nestedJson);
+    // console.log(reconstructJson);
   }
 }

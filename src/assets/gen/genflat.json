@@ -1,0 +1,16 @@
+{
+    "/content/data/events/data/items/value/test": "This is harcoded value",
+    "/content/data/events/data/items/value_1/test": "This is harcoded value",
+    "/content/data/events/data/items/value/magnitude": 100,
+    "/content/data/events/data/items/value/unit": "mm[Hg]",
+    "/content/data/events/data/items/value_1/magnitude": 120,
+    "/content/data/events/data/items/value_1/unit": "mm[Hg]",
+    "/content/data/events_1/math_function/code": "146",
+    "/content/data/events_1/width/year_magnitude": 2442,
+    "/content/data/events_1/width/month_magnitude": 24,
+    "/content/data/events_1/width/day_magnitude": 24,
+    "/content/data/events_1/width/week_magnitude": 24,
+    "/content/data/events_1/width/hour_magnitude": 24,
+    "/content/data/events_1/width/minute_magnitude": 24,
+    "/content/data/events_1/width/second_magnitude": 24
+}
