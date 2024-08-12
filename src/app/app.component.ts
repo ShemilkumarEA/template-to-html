@@ -7,6 +7,8 @@ import opd from '../assets/opd.json';
 import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
+import newjson from '../assets/new.v11.json';
+import newjson2 from '../assets/new.v1.json'
 import { Children } from './models/genModels.interface';
 
 interface FlatObject {
@@ -38,7 +40,9 @@ export class AppComponent implements OnInit {
     // this.fields = this.mapJsonToFormly(opd);
     // this.fields = this.mapJsonToFormly(allergy);
     // this.fields = this.mapJsonToFormly(term1);
-    this.fields = this.mapJsonToFormly(demo);
+    // this.fields = this.mapJsonToFormly(demo);
+    this.fields = this.mapJsonToFormly(newjson);
+    // this.fields = this.mapJsonToFormly(newjson2);
   }
 
   dvQuantity(
@@ -181,7 +185,7 @@ export class AppComponent implements OnInit {
             type: 'select',
             templateOptions: {
               placeholder: `${options[0].label}`,
-              label: node.name,
+              label: node.name || node.localizedName,
               options: options.slice(1,options.length),
               attributes: {
                 style: "height: 38px; padding: 5px; color: #495057;",
@@ -209,10 +213,10 @@ export class AppComponent implements OnInit {
 
   dvCount(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
-        wrappers: ['formly-horizontal-wrapper'],
         label: node.name || node.localizedName,
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
@@ -266,6 +270,7 @@ export class AppComponent implements OnInit {
     aqlPath: string
   ): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'checkbox',
       templateOptions: {
@@ -306,10 +311,10 @@ export class AppComponent implements OnInit {
 
   dvTime(node: Children, fields: FormlyFieldConfig[], aqlPath: string): void {
     fields.push({
+      wrappers: ['formly-horizontal-wrapper'],
       key: aqlPath,
       type: 'input',
       templateOptions: {
-        wrappers: ['formly-horizontal-wrapper'],
         label: node.name || node.localizedName,
         placeholder: `Enter ${node.name}`,
         required: node.min === 1,
