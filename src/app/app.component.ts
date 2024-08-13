@@ -310,17 +310,20 @@ export class AppComponent implements OnInit {
           const modelKey: string = aqlPath;
           this.model = {
             ...this.model,
-            [modelKey + '/value']: node.inputs?.map(
-              (input) => input.list?.map((item) => item.label) || []
-            ),
+            [modelKey + '/value']: node.inputs
+              ?.flatMap(
+                (input) => input.list?.flatMap((item) => item.label) || []
+              )
+              .join(','),
             [modelKey + '/defining_code' + '/terminology_id' + '/_type']:
               'TERMINOLOGY_ID',
             [modelKey + '/defining_code' + '/terminology_id' + '/value']:
-              node.inputs?.map((input) => input.terminology),
-            [modelKey + '/defining_code' + '/code_string']:
-              node.inputs?.flatMap(
-                (input) => input.list?.map((item) => item.value) || []
-              ),
+              node.inputs?.flatMap((input) => input.terminology).join(','),
+            [modelKey + '/defining_code' + '/code_string']: node.inputs
+              ?.flatMap(
+                (input) => input.list?.flatMap((item) => item.value) || []
+              )
+              .join(','),
           };
           break;
         }
