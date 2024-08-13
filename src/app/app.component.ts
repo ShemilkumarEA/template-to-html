@@ -392,6 +392,9 @@ export class AppComponent implements OnInit {
             [modelKey + 'name' + '/_type']: 'DV_TEXT',
             [modelKey + 'name' + '/value']: node.name,
             [modelKey + 'archetype_node_id']: node.nodeId,
+            [modelKey + 'archetype_details' + '/archetype_id' + '/value'] : node.nodeId,
+            [modelKey + 'archetype_details' + '/template_id' + '/value']: node.name,
+            [modelKey + 'archetype_details' + '/rm_version']: '1.0.1',    // Not sure about the value here
           };
           break;
         }
