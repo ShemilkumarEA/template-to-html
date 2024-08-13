@@ -9,7 +9,7 @@ import allergy from '../assets/allergy.json';
 import term1 from '../assets/term-v1.json';
 import demo from '../assets/demo.v0.json';
 import gen1 from '../assets/gen/gen1.json';
-import { Children } from './models/genModels.interface';
+import { Children, List } from './models/genModels.interface';
 type JsonObject = { [key: string]: any };
 
 @Component({
@@ -296,60 +296,77 @@ export class AppComponent implements OnInit {
   rmClassifier(
     node: Children,
     fields: FormlyFieldConfig[],
-    aqlPath: string
+    aqlPath: string,
+    inContext: boolean
   ): void {
     if (node.rmType.startsWith('DV')) {
       switch (node.rmType) {
         case 'DV_DURATION': {
-          this.dvDuration(node, fields, aqlPath);
+          if (!inContext) this.dvDuration(node, fields, aqlPath);
           break;
         }
         case 'DV_CODED_TEXT': {
-          this.dvCodedText(node, fields, aqlPath);
+          if (!inContext) this.dvCodedText(node, fields, aqlPath);
+          const modelKey: string = aqlPath;
+          this.model = {
+            ...this.model,
+            [modelKey + '/value']: node.inputs?.map(
+              (input) => input.list?.map((item) => item.label) || []
+            ),
+            [modelKey + '/defining_code' + '/terminology_id' + '/_type']:
+              'TERMINOLOGY_ID',
+            [modelKey + '/defining_code' + '/terminology_id' + '/value']:
+              node.inputs?.map((input) => input.terminology),
+            [modelKey + '/defining_code' + '/code_string']:
+              node.inputs?.flatMap(
+                (input) => input.list?.map((item) => item.value) || []
+              ),
+          };
           break;
         }
         case 'DV_QUANTITY': {
-          this.dvQuantity(node, fields, aqlPath);
+          if (!inContext) this.dvQuantity(node, fields, aqlPath);
           break;
         }
         case 'DV_DATE_TIME': {
-          this.dvDateTime(node, fields, aqlPath);
+          if (!inContext)
+            if (!inContext) this.dvDateTime(node, fields, aqlPath);
           break;
         }
         case 'DV_TEXT': {
-          this.dvText(node, fields, aqlPath);
+          if (!inContext) this.dvText(node, fields, aqlPath);
           break;
         }
         case 'DV_PROPORTION': {
-          this.dvProportion(node, fields, aqlPath);
+          if (!inContext) this.dvProportion(node, fields, aqlPath);
           break;
         }
         case 'DV_IDENTIFIER': {
-          this.dvIdentifier(node, fields, aqlPath);
+          if (!inContext) this.dvIdentifier(node, fields, aqlPath);
           break;
         }
         case 'DV_BOOLEAN': {
-          this.dvBoolean(node, fields, aqlPath);
+          if (!inContext) this.dvBoolean(node, fields, aqlPath);
           break;
         }
         case 'DV_COUNT': {
-          this.dvCount(node, fields, aqlPath);
+          if (!inContext) this.dvCount(node, fields, aqlPath);
           break;
         }
         case 'DV_INTERVAL<DV_DATE_TIME>': {
-          this.dvInterval(node, fields, aqlPath);
+          if (!inContext) this.dvInterval(node, fields, aqlPath);
           break;
         }
         case 'DV_DATE': {
-          this.dvDate(node, fields, aqlPath);
+          if (!inContext) this.dvDate(node, fields, aqlPath);
           break;
         }
         case 'DV_TIME': {
-          this.dvTime(node, fields, aqlPath);
+          if (!inContext) this.dvTime(node, fields, aqlPath);
           break;
         }
         case 'DV_MULTIMEDIA': {
-          this.dvMultimedia(node, fields, aqlPath);
+          if (!inContext) this.dvMultimedia(node, fields, aqlPath);
           break;
         }
         default:
@@ -358,13 +375,43 @@ export class AppComponent implements OnInit {
     } else {
       switch (node.rmType) {
         case 'COMPOSITION': {
-          fields.push({
-            template: `<h1>${node.name}</h1><p>${
-              node.localizedDescriptions?.en || ''
-            }</p>`,
-          });
+          if (!inContext) {
+            fields.push({
+              template: `<h1>${node.name}</h1><p>${
+                node.localizedDescriptions?.en || ''
+              }</p>`,
+            });
+          }
+          const modelKey: string = aqlPath;
+          this.model = {
+            ...this.model,
+            [modelKey + '_type']: 'COMPOSITION',
+            [modelKey + 'name' + '/_type']: 'DV_TEXT',
+            [modelKey + 'name' + '/value']: node.name,
+            [modelKey + 'archetype_node_id']: node.nodeId,
+          };
           break;
         }
+        case 'CODE_PHRASE':
+          const modelKey: string = aqlPath;
+
+          if (node.id == 'language')
+            this.model = {
+              ...this.model,
+              [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
+              [modelKey + '/terminology_id' + '/value']: 'ISO_639-1',
+              [modelKey + '/code_string']: 'en',
+            };
+          if (node.id == 'territory')
+            this.model = {
+              ...this.model,
+              [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
+              [modelKey + '/terminology_id' + '/value']: 'ISO_3166-1',
+              [modelKey + '/code_string']: 'UY',
+            };
+          break;
+        case 'PARTY_PROXY':
+          break;
         case 'OBSERVATION':
         case 'INTERVAL_EVENT':
         case 'SECTION':
@@ -375,9 +422,10 @@ export class AppComponent implements OnInit {
         case 'EVALUATION':
         case 'ELEMENT':
         case 'CLUSTER': {
-          fields.push({
-            template: `<h3>${node.name}</h3>`,
-          });
+          if (!inContext)
+            fields.push({
+              template: `<h3>${node.name}</h3>`,
+            });
           break;
         }
         case 'EVENT_CONTEXT':
@@ -385,6 +433,7 @@ export class AppComponent implements OnInit {
           break;
         }
         default:
+          // if (!inContext)
           fields.push({
             template: `<h3>${node.name} + ${node.rmType}</h3>`,
           });
@@ -468,7 +517,9 @@ export class AppComponent implements OnInit {
 
       // console.log(aqlPath);
       if (!node.inContext) {
-        this.rmClassifier(node, fields, aqlPath);
+        this.rmClassifier(node, fields, aqlPath, false);
+      } else {
+        this.rmClassifier(node, fields, aqlPath, true);
       }
 
       if (node.children) {
