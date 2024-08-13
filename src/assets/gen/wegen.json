@@ -1,18 +1,47 @@
 {
+    "_type": "COMPOSITION",
+    "name": {
+        "_type": "DV_TEXT",
+        "value": "new.v1"
+    },
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "context": {
+        "setting": {
+            "value": "",
+            "defining_code": {
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": ","
+                },
+                "code_string": ""
+            }
+        }
+    },
     "content": {
+        "_type": "OBSERVATION",
+        "name": {
+            "_type": "DV_TEXT",
+            "value": "Blood pressure"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2",
         "data": {
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "History"
+            },
+            "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2",
             "events": [
                 {
                     "data": {
                         "items": {
                             "value": [
                                 {
-                                    "test": "This is harcoded value",
+                                    "_type": "DV_QUANTITY",
                                     "magnitude": 100,
                                     "unit": "mm[Hg]"
                                 },
                                 {
-                                    "test": "This is harcoded value",
+                                    "_type": "DV_QUANTITY",
                                     "magnitude": 120,
                                     "unit": "mm[Hg]"
                                 }
@@ -21,13 +50,27 @@
                     }
                 },
                 {
+                    "_type": "INTERVAL_EVENT",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "24 hour average"
+                    },
+                    "archetype_node_id": "at1042",
                     "math_function": {
+                        "value": "mean",
+                        "defining_code": {
+                            "terminology_id": {
+                                "_type": "TERMINOLOGY_ID",
+                                "value": "openehr"
+                            },
+                            "code_string": "146"
+                        },
                         "code": "146"
                     },
                     "width": {
-                        "year_magnitude": 2324,
+                        "year_magnitude": 2424,
                         "month_magnitude": 24,
-                        "day_magnitude": 24,
+                        "day_magnitude": 42,
                         "week_magnitude": 24,
                         "hour_magnitude": 24,
                         "minute_magnitude": 24,
@@ -35,6 +78,50 @@
                     }
                 }
             ]
+        },
+        "language": {
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "ISO_639-1"
+            },
+            "code_string": "en"
+        },
+        "encoding": {
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "IANA_character-sets"
+            },
+            "code_string": "UTF-8"
+        },
+        "subject": {
+            "_type": "PARTY_SELF"
         }
+    },
+    "category": {
+        "value": "event",
+        "defining_code": {
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+            },
+            "code_string": "433"
+        }
+    },
+    "language": {
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_639-1"
+        },
+        "code_string": "en"
+    },
+    "territory": {
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_3166-1"
+        },
+        "code_string": "UY"
+    },
+    "composer": {
+        "_type": "PARTY_SELF"
     }
 }

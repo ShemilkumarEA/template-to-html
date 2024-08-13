@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
                 key: aqlPath + `/${child.suffix}`,
                 type: 'select',
                 templateOptions: {
-                  label: node.name + ' (unit)',
+                  label: node.name + ' (units)',
                   options: options,
                 },
               });
@@ -83,10 +83,10 @@ export class AppComponent implements OnInit {
               //   defaultValue: 'This is a default value',
               //   hide: true,
               // });
-              const modelKey: string = aqlPath + '/test';
+              const modelKey: string = aqlPath + '/_type';
               this.model = {
                 ...this.model,
-                [modelKey]: 'This is harcoded value',
+                [modelKey]: 'DV_QUANTITY',
               };
             }
             break;
@@ -396,26 +396,59 @@ export class AppComponent implements OnInit {
           break;
         }
         case 'CODE_PHRASE':
-          const modelKey: string = aqlPath;
+          {
+            const modelKey: string = aqlPath;
 
-          if (node.id == 'language')
-            this.model = {
-              ...this.model,
-              [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
-              [modelKey + '/terminology_id' + '/value']: 'ISO_639-1',
-              [modelKey + '/code_string']: 'en',
-            };
-          if (node.id == 'territory')
-            this.model = {
-              ...this.model,
-              [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
-              [modelKey + '/terminology_id' + '/value']: 'ISO_3166-1',
-              [modelKey + '/code_string']: 'UY',
-            };
+            if (node.id == 'language')
+              this.model = {
+                ...this.model,
+                [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
+                [modelKey + '/terminology_id' + '/value']: 'ISO_639-1',
+                [modelKey + '/code_string']: 'en',
+              };
+            if (node.id == 'territory')
+              this.model = {
+                ...this.model,
+                [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
+                [modelKey + '/terminology_id' + '/value']: 'ISO_3166-1',
+                [modelKey + '/code_string']: 'UY',
+              };
+            if (node.id == 'encoding')
+              this.model = {
+                ...this.model,
+                [modelKey + '/terminology_id' + '/_type']: 'TERMINOLOGY_ID',
+                [modelKey + '/terminology_id' + '/value']:
+                  'IANA_character-sets',
+                [modelKey + '/code_string']: 'UTF-8',
+              };
+          }
           break;
         case 'PARTY_PROXY':
+          const modelKey: string = aqlPath;
+          this.model = {
+            ...this.model,
+            [modelKey + '/_type']: 'PARTY_SELF',
+          };
           break;
         case 'OBSERVATION':
+          {
+            if (!inContext)
+              fields.push({
+                template: `<h3>${node.name}</h3>`,
+              });
+            const modelKey: string = aqlPath;
+            this.model = {
+              ...this.model,
+              [modelKey + '/_type']: node.rmType,
+              [modelKey + '/name' + '/_type']: 'DV_TEXT',
+              [modelKey + '/name' + '/value']: node.name,
+              [modelKey + '/archetype_node_id']: node.nodeId,
+              [modelKey + '/data' + '/name' + '/_type']: 'DV_TEXT',
+              [modelKey + '/data' + '/name' + '/value']: 'History',
+              [modelKey + '/data' + '/archetype_node_id']: '',
+            };
+          }
+          break;
         case 'INTERVAL_EVENT':
         case 'SECTION':
         case 'ADMIN_ENTRY':
@@ -423,14 +456,23 @@ export class AppComponent implements OnInit {
         case 'INSTRUCTION':
         case 'ACTIVITY':
         case 'EVALUATION':
-        case 'ELEMENT':
         case 'CLUSTER': {
           if (!inContext)
             fields.push({
               template: `<h3>${node.name}</h3>`,
             });
+          const modelKey: string = aqlPath;
+          this.model = {
+            ...this.model,
+            [modelKey + '/_type']: node.rmType,
+            [modelKey + '/name' + '/_type']: 'DV_TEXT',
+            [modelKey + '/name' + '/value']: node.name,
+            [modelKey + '/archetype_node_id']: node.nodeId,
+          };
           break;
         }
+        case 'ELEMENT':
+          break;
         case 'EVENT_CONTEXT':
         case 'EVENT': {
           break;
