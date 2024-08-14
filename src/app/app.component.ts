@@ -325,6 +325,8 @@ export class AppComponent implements OnInit {
               )
               .join(','),
           };
+          console.log(this.model);
+          
           break;
         }
         case 'DV_QUANTITY': {
@@ -449,6 +451,9 @@ export class AppComponent implements OnInit {
               [modelKey + '/data' + '/name' + '/_type']: 'DV_TEXT',
               [modelKey + '/data' + '/name' + '/value']: 'History',
               [modelKey + '/data' + '/archetype_node_id']: '',
+              [modelKey + '/archetype_details' + '/archetype_id'+ '/value']: node.nodeId,
+              [modelKey + '/archetype_details' + '/template_id' + '/value']: '',
+              [modelKey + '/archetype_details' + '/rm_version']: '1.0.1',    // Not sure about the value here
             };
           }
           break;
@@ -476,7 +481,19 @@ export class AppComponent implements OnInit {
         }
         case 'ELEMENT':
           break;
-        case 'EVENT_CONTEXT':
+        case 'EVENT_CONTEXT': {
+          const modelKey: string = aqlPath;
+          this.model = {
+            ...this.model,
+            [modelKey + '/start_time' + '/value']: "2024-08-06T07:10:28.502Z",      //HardCoded value
+            [modelKey + '/other_context' + '/_type']: "ITEM_TREE",
+            [modelKey + '/other_context' + '/archetype_node_id']: "at0001",
+            [modelKey + '/other_context' + '/name' + '/_type'] : "DV_TEXT",
+            [modelKey + '/other_context' + '/name' + '/value']: "Tree",                                    
+            [modelKey + '/participations']: [],                                    
+          };
+          break;
+        }
         case 'EVENT': {
           break;
         }
