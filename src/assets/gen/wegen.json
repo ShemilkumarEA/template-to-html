@@ -5,6 +5,15 @@
         "value": "new.v1"
     },
     "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "archetype_details": {
+        "archetype_id": {
+            "value": "openEHR-EHR-COMPOSITION.encounter.v1"
+        },
+        "template_id": {
+            "value": "new.v1"
+        },
+        "rm_version": "1.0.1"
+    },
     "context": {
         "setting": {
             "value": "",
@@ -29,24 +38,26 @@
                 "_type": "DV_TEXT",
                 "value": "History"
             },
-            "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2,openEHR-EHR-OBSERVATION.blood_pressure.v2",
+            "archetype_node_id": "at0001",
             "events": [
                 {
                     "data": {
-                        "items": {
-                            "value": [
-                                {
+                        "items": [
+                            {
+                                "value": {
                                     "_type": "DV_QUANTITY",
                                     "magnitude": 100,
                                     "unit": "mm[Hg]"
-                                },
-                                {
+                                }
+                            },
+                            {
+                                "value": {
                                     "_type": "DV_QUANTITY",
-                                    "magnitude": 120,
+                                    "magnitude": 123,
                                     "unit": "mm[Hg]"
                                 }
-                            ]
-                        }
+                            }
+                        ]
                     }
                 },
                 {
@@ -68,9 +79,9 @@
                         "code": "146"
                     },
                     "width": {
-                        "year_magnitude": 2424,
+                        "year_magnitude": 2323,
                         "month_magnitude": 24,
-                        "day_magnitude": 42,
+                        "day_magnitude": 24,
                         "week_magnitude": 24,
                         "hour_magnitude": 24,
                         "minute_magnitude": 24,
