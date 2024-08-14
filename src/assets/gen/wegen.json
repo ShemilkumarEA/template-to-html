@@ -15,6 +15,18 @@
         "rm_version": "1.0.1"
     },
     "context": {
+        "start_time": {
+            "value": "2024-08-06T07:10:28.502Z"
+        },
+        "other_context": {
+            "_type": "ITEM_TREE",
+            "archetype_node_id": "at0001",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Tree"
+            }
+        },
+        "participations": [],
         "setting": {
             "value": "",
             "defining_code": {
@@ -46,15 +58,12 @@
                             {
                                 "value": {
                                     "_type": "DV_QUANTITY",
-                                    "magnitude": 100,
-                                    "unit": "mm[Hg]"
+                                    "magnitude": 1
                                 }
                             },
                             {
                                 "value": {
-                                    "_type": "DV_QUANTITY",
-                                    "magnitude": 123,
-                                    "unit": "mm[Hg]"
+                                    "_type": "DV_QUANTITY"
                                 }
                             }
                         ]
@@ -75,20 +84,19 @@
                                 "value": "openehr"
                             },
                             "code_string": "146"
-                        },
-                        "code": "146"
-                    },
-                    "width": {
-                        "year_magnitude": 2323,
-                        "month_magnitude": 24,
-                        "day_magnitude": 24,
-                        "week_magnitude": 24,
-                        "hour_magnitude": 24,
-                        "minute_magnitude": 24,
-                        "second_magnitude": 24
+                        }
                     }
                 }
             ]
+        },
+        "archetype_details": {
+            "archetype_id": {
+                "value": "openEHR-EHR-OBSERVATION.blood_pressure.v2"
+            },
+            "template_id": {
+                "value": ""
+            },
+            "rm_version": "1.0.1"
         },
         "language": {
             "terminology_id": {
