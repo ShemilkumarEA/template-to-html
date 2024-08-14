@@ -26,14 +26,13 @@ export class AppComponent implements OnInit {
   res: any = {};
 
   ngOnInit(): void {
-    this.fields = this.mapJsonToFormly(fresh);
+    // this.fields = this.mapJsonToFormly(fresh);
     // this.fields = this.mapJsonToFormly(covidForm);
     // this.fields = this.mapJsonToFormly(opd);
     // this.fields = this.mapJsonToFormly(allergy);
-    // this.fields = this.mapJsonToFormly(term1);
+    this.fields = this.mapJsonToFormly(term1);
     // this.fields = this.mapJsonToFormly(demo);
     // this.res = this.reconstructJson(gen1);
-    // console.log(this.res);
   }
 
   dvQuantity(
@@ -73,16 +72,6 @@ export class AppComponent implements OnInit {
                   options: options,
                 },
               });
-              // fields.push({
-              //   key: aqlPath + `/${child.suffix}`,
-              //   type: 'select',
-              //   templateOptions: {
-              //     label: node.name + ' (unit)',
-              //     options: options,
-              //   },
-              //   defaultValue: 'This is a default value',
-              //   hide: true,
-              // });
               const modelKey: string = aqlPath + '/_type';
               this.model = {
                 ...this.model,
@@ -325,7 +314,7 @@ export class AppComponent implements OnInit {
               )
               .join(','),
           };
-          console.log(this.model);
+          // console.log(this.model);
 
           break;
         }
@@ -542,9 +531,16 @@ export class AppComponent implements OnInit {
 
   pathIndexArray: { [key: string]: number } = {};
 
-  paths = new Map<string, string>();
-  aqlPaths = new Map<string, string>();
-  //Function to generate unique path
+  paths = new Map<
+    string,
+    string
+  >(); /*Paths for intial map ds(no unique values)*/
+  aqlPaths = new Map<
+    string,
+    string
+  >(); /*Paths for final map ds(unique values present)*/
+
+  /*Function to append parent path and cleaned path present*/
   stripString(str1: string, str2: string): string {
     let index: number = 0;
 
@@ -559,58 +555,60 @@ export class AppComponent implements OnInit {
 
     return str1;
   }
-  findIndex(str1: string, str2: string): number {
-    let index: number = 0;
 
-    for (let i = 0; i < str2.length; i++) {
-      if (str1[index] == str2[i]) {
-        index++;
-      } else {
-        break;
-      }
-    }
-
-    return index;
-  }
-
+  /*
+  Function to find the common point between previous aql path and present aql path and add 
+  the unique identifier(number) in between them 
+  */
   findDivergence(nextIndex: number, str1: string, str2: string): string {
     let index: number = 0;
+    let index2: number = 0;
 
     // console.log(str1, str2);
     for (let i = 0; i < str2.length && index < str1.length; i++) {
       if (str1[index] === str2[i]) {
         index++;
+        index2++;
       } else {
-        // Skip over any closing brackets in str1
+        /* Skip over any closing brackets in str1 */
         while (str1[index] != ']' && index < str1.length) {
           index++;
+        }
+        while (str2[index2] != ']' && index2 < str2.length) {
+          index2++;
         }
         break;
       }
     }
     index++;
+    index2++;
 
     // console.log(nextIndex);
 
-    // Construct the new path with nextIndex
+    /*Construct the new path with nextIndex*/
     let path: string =
-      str1.substring(0, index) + `${nextIndex}` + str2.slice(index);
+      str1.substring(0, index) + `${nextIndex}` + str2.slice(index2);
 
     // console.log(path);
 
-    // Remove square brackets and anything inside them
+    /* Remove square brackets and anything inside them*/
     return path.replace(/\[.*?\]/g, '');
   }
-
+  /*
+  Function to find the parent path i.e to find the last index where a number existed and upto that point is slice and sent back
+  */
   findParent(str1: string) {
     const lastIndex = str1.search(/\d(?!.*\d)/);
     const slicedStr = str1.slice(0, lastIndex + 1);
     return slicedStr;
   }
-
+  /*Maping function for jsontree template*/
   mapJsonToFormly(jsonData: any): FormlyFieldConfig[] {
     const fields: FormlyFieldConfig[] = [];
     let index: number = 0;
+    /*
+      Generates map structure <key,value> pair of <node.aqlPath,cleaned Aqlpath>
+     */
     const genAqlPaths = (node: any) => {
       const aqlPath = node.aqlPath.replace(/\[.*?\]/g, '');
       this.aqlPaths.set(node.aqlPath, aqlPath);
@@ -618,20 +616,26 @@ export class AppComponent implements OnInit {
         node.children.forEach((child: any) => genAqlPaths(child));
       }
     };
-
+    /*
+    Function to generate unique paths from the data structure that is set in the previous function (map)
+    */
     const genPaths = (node: any, parentPath: string) => {
       const cleanedAqlPath = node.aqlPath.replace(/\[.*?\]/g, '');
-      // console.log(parentPath);
+      let prevPath: string = '';
       let aqlPath = '';
+      // console.log(parentPath);
+
+      /*Function to set the basepath based on existance of a previous path(parent path) or not*/
       let baseAqlPath = parentPath
         ? this.stripString(parentPath, cleanedAqlPath)
         : cleanedAqlPath;
-      // const baseAqlPath = this.stripString(parentPath, cleanedAqlPath);
       // console.log(baseAqlPath);
-      // Determine the next available index for this path
+
+      /*Determine the next available index for this path*/
       const nextIndex = this.pathIndexArray[baseAqlPath] || 0;
       // console.log(nextIndex);
-      let prevPath: string = '';
+
+      /*Iterate through the preset map (node.aqlPath,cleanedpath) for the repeated paths with square bracket values*/
       for (const [key, value] of this.aqlPaths.entries()) {
         // console.log(key, value);
         if (cleanedAqlPath === value) {
@@ -639,9 +643,10 @@ export class AppComponent implements OnInit {
           break; // Exit the loop after the first match
         }
       }
-
       // console.log(prevPath);
 
+      /*If nexIndex>0 which means that the path already exists to make it unique find the difference between their node.aqlpaths,
+      prevoius node.aqlPath is determined from the previous step*/
       if (nextIndex > 0) {
         aqlPath = this.findDivergence(nextIndex, prevPath, node.aqlPath);
         // console.log(aqlPath);
@@ -650,42 +655,56 @@ export class AppComponent implements OnInit {
       }
       // console.log(aqlPath);
 
-      // Update the next available index for this path
+      /* Update the next available index for this path*/
       this.pathIndexArray[baseAqlPath] = nextIndex + 1;
+
+      /*Push the paths that we will be using in formly fields for unique paths*/
       this.paths.set(node.aqlPath, aqlPath);
+
+      /*Determine the parent path so if children exists then parent path is set with the modifications done earlier*/
       if (nextIndex - 1 > 0) aqlPath = this.findParent(aqlPath);
+
+      /*Iterate through the children*/
       if (node.children) {
         node.children.forEach((child: any) => genPaths(child, aqlPath));
       }
     };
+    /*Iterate through each node*/
     const processNode = (node: any, parentPath: string = '') => {
       var aqlPath = this.paths.get(node.aqlPath);
 
       // console.log(aqlPath);
       if (aqlPath != undefined)
         if (!node.inContext) {
+          /** If node doesnt not have inContext then set that field as false and send to rmClassifier else send true*/
           this.rmClassifier(node, fields, aqlPath, false);
         } else {
           this.rmClassifier(node, fields, aqlPath, true);
         }
-
+      /**Iterate recursively if children node exists in it  */
       if (node.children) {
         node.children.forEach((child: any) => processNode(child, aqlPath));
       }
     };
+
+    /*Calls genaqlpaths to intitally generate all aqlpaths & cleanedAqlpaths in map ds*/
     genAqlPaths(jsonData.tree);
-    // console.log(this.aqlPaths);
+    console.log(this.aqlPaths);
+
+    /*Calls genpaths to  generate unique paths from  aqlpaths & cleanedAqlpaths map and store it in another map ds*/
     genPaths(jsonData.tree, '');
     console.log(this.paths.values());
+
+    /**Processing of nodes or node traversal beginds here */
     processNode(jsonData.tree);
 
     return fields;
   }
-
+  /*Post processing of json for creation of array of objects in certain cases*/
   reconstructJson(currenObj: any): any {
     const result: any = {};
 
-    // First, find all unique base keys
+    /* First, find all unique base keys and push into map if repeated then increment value*/
     const keyMap = new Map<string, number>();
     for (const key in currenObj) {
       const baseKey = key.replace(/\d+$/, ''); // Remove trailing digits
@@ -696,17 +715,17 @@ export class AppComponent implements OnInit {
       }
     }
 
-    // Process each base key
+    /* Process each base key*/
     for (const [baseKey, count] of keyMap) {
       if (count > 1) {
-        // If there are multiple similar keys, create an array
+        /* If there are multiple similar keys, create an array of object*/
         result[baseKey] = [];
         for (let i = 0; i < count; i++) {
           const fullKey = i === 0 ? baseKey : `${baseKey}${i}`;
           result[baseKey].push(this.reconstructJson(currenObj[fullKey]));
         }
       } else {
-        // Otherwise, just copy the value
+        /* Otherwise, just copy the value*/
         result[baseKey] =
           this.getType(currenObj[baseKey]) === 'object'
             ? this.reconstructJson(currenObj[baseKey])
@@ -716,7 +735,9 @@ export class AppComponent implements OnInit {
 
     return result;
   }
-
+  /*
+  Data types in json 
+   */
   getType(p: any) {
     if (Array.isArray(p)) return 'array';
     else if (typeof p == 'string') return 'string';
@@ -724,13 +745,16 @@ export class AppComponent implements OnInit {
     else if (p != null && typeof p == 'object') return 'object';
     else return 'other';
   }
+
+  /*Final function for submitting*/
   onSubmit(model: any) {
     // console.log(model);
 
+    /*Intially created a nestedjson from model*/
     const nestedJson = this.createNestedJson(model);
-
     // console.log(nestedJson);
-    // this.reconstructJson(nestedJson);
+
+    /*Modify unique paths to create array of objects*/
     const reconstructJson = this.reconstructJson(nestedJson);
     console.log(reconstructJson);
   }

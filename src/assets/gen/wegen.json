@@ -2,7 +2,7 @@
     "_type": "COMPOSITION",
     "name": {
         "_type": "DV_TEXT",
-        "value": "new.v1"
+        "value": "pdjallergy.v0"
     },
     "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
     "archetype_details": {
@@ -10,9 +10,19 @@
             "value": "openEHR-EHR-COMPOSITION.encounter.v1"
         },
         "template_id": {
-            "value": "new.v1"
+            "value": "pdjallergy.v0"
         },
         "rm_version": "1.0.1"
+    },
+    "category": {
+        "value": "event",
+        "defining_code": {
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+            },
+            "code_string": "433"
+        }
     },
     "context": {
         "start_time": {
@@ -39,92 +49,90 @@
         }
     },
     "content": {
-        "_type": "OBSERVATION",
+        "_type": "SECTION",
         "name": {
             "_type": "DV_TEXT",
-            "value": "Blood pressure"
+            "value": "Adverse reaction list"
         },
-        "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2",
-        "data": {
+        "archetype_node_id": "openEHR-EHR-SECTION.adverse_reaction_list.v0",
+        "items": {
+            "_type": "EVALUATION",
             "name": {
                 "_type": "DV_TEXT",
-                "value": "History"
+                "value": "Adverse reaction risk"
             },
-            "archetype_node_id": "at0001",
-            "events": [
-                {
-                    "data": {
+            "archetype_node_id": "openEHR-EHR-EVALUATION.adverse_reaction_risk.v1",
+            "data": {
+                "items": [
+                    {
+                        "_type": "CLUSTER",
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Reaction event"
+                        },
+                        "archetype_node_id": "at0009",
                         "items": [
                             {
-                                "value": {
-                                    "_type": "DV_QUANTITY",
-                                    "magnitude": 1
-                                }
+                                "value": "23123"
                             },
                             {
                                 "value": {
-                                    "_type": "DV_QUANTITY"
+                                    "value": "Mild,Moderate,Severe",
+                                    "defining_code": {
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "local"
+                                        },
+                                        "code_string": "at0093,at0092,at0090"
+                                    },
+                                    "code": "at0093"
                                 }
                             }
-                        ]
-                    }
-                },
-                {
-                    "_type": "INTERVAL_EVENT",
-                    "name": {
-                        "_type": "DV_TEXT",
-                        "value": "24 hour average"
+                        ],
+                        "value": "123"
                     },
-                    "archetype_node_id": "at1042",
-                    "math_function": {
-                        "value": "mean",
-                        "defining_code": {
-                            "terminology_id": {
-                                "_type": "TERMINOLOGY_ID",
-                                "value": "openehr"
+                    {
+                        "value": {
+                            "value": "Suspected,Likely,Confirmed,Resolved,Refuted",
+                            "defining_code": {
+                                "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "local"
+                                },
+                                "code_string": "at0127,at0064,at0065,at0067,at0066"
                             },
-                            "code_string": "146"
+                            "code": "at0127"
                         }
+                    },
+                    {
+                        "value": "2024-08-03T14:35"
+                    },
+                    {
+                        "value": "12323"
                     }
-                }
-            ]
-        },
-        "archetype_details": {
-            "archetype_id": {
-                "value": "openEHR-EHR-OBSERVATION.blood_pressure.v2"
+                ]
             },
-            "template_id": {
-                "value": ""
+            "subject": {
+                "_type": "PARTY_SELF"
             },
-            "rm_version": "1.0.1"
-        },
-        "language": {
-            "terminology_id": {
-                "_type": "TERMINOLOGY_ID",
-                "value": "ISO_639-1"
+            "language": {
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "ISO_639-1"
+                },
+                "code_string": "en"
             },
-            "code_string": "en"
-        },
-        "encoding": {
-            "terminology_id": {
-                "_type": "TERMINOLOGY_ID",
-                "value": "IANA_character-sets"
-            },
-            "code_string": "UTF-8"
-        },
-        "subject": {
-            "_type": "PARTY_SELF"
+            "encoding": {
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "IANA_character-sets"
+                },
+                "code_string": "UTF-8"
+            }
         }
     },
-    "category": {
-        "value": "event",
-        "defining_code": {
-            "terminology_id": {
-                "_type": "TERMINOLOGY_ID",
-                "value": "openehr"
-            },
-            "code_string": "433"
-        }
+    "composer": {
+        "_type": "PARTY_SELF"
     },
     "language": {
         "terminology_id": {
@@ -139,8 +147,5 @@
             "value": "ISO_3166-1"
         },
         "code_string": "UY"
-    },
-    "composer": {
-        "_type": "PARTY_SELF"
     }
 }
